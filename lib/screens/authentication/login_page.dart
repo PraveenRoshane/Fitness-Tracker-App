@@ -3,8 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/common/theme_helper.dart';
 import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
+import 'package:flutter_new/screens/home/home.dart';
 import 'forgot_password_page.dart';
-import 'profile_page.dart';
 import 'registration_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: _headerHeight,
               child: HeaderWidget(_headerHeight, true,
                   Icons.login_rounded), //let's create a common header widget
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (user != null) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => ProfilePage()),
+            MaterialPageRoute(builder: (context) => const Home()),
             (Route<dynamic> route) => false);
       }
     } on FirebaseAuthException catch (e) {

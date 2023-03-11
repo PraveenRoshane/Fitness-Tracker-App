@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
-import 'package:flutter_new/screens/authentication/splash_screen.dart';
 import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
+import 'package:flutter_new/screens/exercise_tracker/exercise_tracker_page.dart';
 import 'forgot_password_page.dart';
 import 'registration_page.dart';
 
@@ -179,6 +179,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ForgotPasswordPage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.run_circle_rounded,
+                  size: _drawerIconSize,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                title: Text(
+                  'Exercise Tracker',
+                  style: TextStyle(
+                      fontSize: _drawerFontSize,
+                      color: Theme.of(context).colorScheme.secondary),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ExerciseTrackerPage()),
                   );
                 },
               ),
