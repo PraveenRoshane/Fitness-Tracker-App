@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_new/models/exercise_model.dart';
-import 'package:flutter_new/screens/exercise_tracker/constants.dart';
 
 class ExerciseListItem extends StatelessWidget {
   final Exercise exercise;
@@ -27,7 +26,7 @@ class ExerciseListItem extends StatelessWidget {
             offset: Offset(0, 17),
             blurRadius: 23,
             spreadRadius: -13,
-            color: kShadowColor,
+            color: Color(0xFFE6E6E6),
           ),
         ],
       ),

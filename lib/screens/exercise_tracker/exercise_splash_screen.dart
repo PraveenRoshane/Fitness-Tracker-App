@@ -26,13 +26,16 @@ class _ExerciseSplashScreenState extends State<ExerciseSplashScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
-              Theme.of(context).primaryColor,
-              Theme.of(context).colorScheme.secondary,
-            ])),
+          gradient: LinearGradient(
+              colors: [
+                Theme.of(context).primaryColor,
+                Theme.of(context).colorScheme.secondary,
+              ],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: const [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
         child: Center(
           child: SafeArea(
             child: Column(
