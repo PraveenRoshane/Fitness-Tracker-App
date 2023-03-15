@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
-import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_new/Services/exercise_service.dart';
 import 'package:flutter_new/models/exercise_model.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
+import 'package:flutter_new/screens/exercise_tracker/constants.dart';
+import 'package:flutter_new/screens/exercise_tracker/exercise_list_Item.dart';
+import 'package:flutter_new/screens/exercise_tracker/widgets/search_bar.dart';
 import 'package:flutter_new/screens/home/home.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ExerciseTrackerPage extends StatefulWidget {
   const ExerciseTrackerPage({super.key});
@@ -17,15 +18,17 @@ class ExerciseTrackerPage extends StatefulWidget {
 }
 
 class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyEdit = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   final TextEditingController _repetitionsController = TextEditingController();
   final ExerciseService _exerciseService = ExerciseService();
   List<Exercise> _exerciseHistory = [];
-  final EventList<Event> _events = EventList<Event>(events: {});
   final double _drawerIconSize = 24;
   final double _drawerFontSize = 17;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -34,26 +37,16 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
   }
 
   Future<void> _loadExerciseHistory() async {
+    setState(() {
+      _isLoading = true;
+    });
+
     List<Exercise> exercises = await _exerciseService.getExerciseHistory();
+
     setState(() {
       _exerciseHistory = exercises;
-      _updateEventList();
+      _isLoading = false;
     });
-  }
-
-  void _updateEventList() {
-    _events.clear();
-    for (var exercise in _exerciseHistory) {
-      DateTime exerciseDate = exercise.timestamp.toDate();
-      _events.add(
-        exerciseDate,
-        Event(
-          date: exerciseDate,
-          title: exercise.name,
-          icon: const Icon(Icons.fitness_center),
-        ),
-      );
-    }
   }
 
   Future<void> _addExercise() async {
@@ -70,6 +63,7 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
       _nameController.clear();
       _timeController.clear();
       _repetitionsController.clear();
+      Navigator.of(context).pop();
     }
   }
 
@@ -78,86 +72,238 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
     _loadExerciseHistory();
   }
 
-  Future<void> _editExercise(Exercise exercise) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        final TextEditingController _editNameController =
-            TextEditingController(text: exercise.name);
-        final TextEditingController _editTimeController =
-            TextEditingController(text: exercise.time.toString());
-        final TextEditingController _editRepetitionsController =
-            TextEditingController(text: exercise.repetitions.toString());
-        return AlertDialog(
-          title: const Text('Edit Exercise'),
-          content: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+  showAddForm() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          var size = MediaQuery.of(context).size;
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  20.0,
+                ),
+              ),
+            ),
+            title: const Center(
+              child: Text(
+                "Add Exercise",
+                style: TextStyle(fontSize: 24.0),
+              ),
+            ),
+            content: SizedBox(
+              height: 280,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: size.height * .34,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          20.0,
+                        ),
+                      ),
+                      color: kBlueLightColor,
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/meditation_bg.png"),
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: _nameController,
+                            decoration:
+                                const InputDecoration(labelText: 'Name'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter a name';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            controller: _timeController,
+                            decoration:
+                                const InputDecoration(labelText: 'Time (min)'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter the time';
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            controller: _repetitionsController,
+                            decoration:
+                                const InputDecoration(labelText: 'Repetitions'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter the repetitions';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kBlueLightColor,
+                  ),
+                  onPressed: _addExercise,
+                  child: const Text('ADD EXERCISE'),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  showEditForm(Exercise exercise) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          var size = MediaQuery.of(context).size;
+          final TextEditingController editNameController =
+              TextEditingController(text: exercise.name);
+          final TextEditingController editTimeController =
+              TextEditingController(text: exercise.time.toString());
+          final TextEditingController editRepetitionsController =
+              TextEditingController(text: exercise.repetitions.toString());
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  20.0,
+                ),
+              ),
+            ),
+            title: const Text(
+              "Edit Exercise",
+              style: TextStyle(fontSize: 24.0),
+            ),
+            content: Stack(
               children: [
-                TextFormField(
-                  controller: _editNameController,
-                  decoration: const InputDecoration(labelText: 'Name'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a name';
-                    }
-                    return null;
-                  },
+                Container(
+                  height: size.height * .34,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        20.0,
+                      ),
+                    ),
+                    color: Colors.green,
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/meditation_bg.png"),
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  controller: _editTimeController,
-                  decoration: const InputDecoration(labelText: 'Time'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a time';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _editRepetitionsController,
-                  decoration: const InputDecoration(labelText: 'Repetitions'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a repetitions';
-                    }
-                    return null;
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Form(
+                    key: _formKeyEdit,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          controller: editNameController,
+                          decoration: const InputDecoration(labelText: 'Name'),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a name';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: editTimeController,
+                          decoration:
+                              const InputDecoration(labelText: 'Time (min)'),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a time';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: editRepetitionsController,
+                          decoration:
+                              const InputDecoration(labelText: 'Repetitions'),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a repetitions';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
-          actions: [
-            TextButton(
-              child: const Text('CANCEL'),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            TextButton(
-              child: const Text('SAVE'),
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  Exercise editedExercise = Exercise(
-                    id: exercise.id,
-                    name: _editNameController.text,
-                    time: int.parse(_editTimeController.text),
-                    repetitions: int.parse(_editRepetitionsController.text),
-                    timestamp: exercise.timestamp,
-                  );
-                  _exerciseService.updateExercise(editedExercise);
-                  _loadExerciseHistory();
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
+            actions: [
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green, // background
+                    foregroundColor: Colors.white, // foreground
+                  ),
+                  child: const Text('SAVE'),
+                  onPressed: () {
+                    if (_formKeyEdit.currentState!.validate()) {
+                      Exercise editedExercise = Exercise(
+                        id: exercise.id,
+                        name: editNameController.text,
+                        time: int.parse(editTimeController.text),
+                        repetitions: int.parse(editRepetitionsController.text),
+                        timestamp: exercise.timestamp,
+                      );
+                      _exerciseService.updateExercise(editedExercise);
+                      _loadExerciseHistory();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red, // background
+                    foregroundColor: Colors.white, // foreground
+                  ),
+                  child: const Text('CANCEL'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ],
+            actionsAlignment: MainAxisAlignment.center,
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -176,6 +322,7 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
                 Theme.of(context).colorScheme.secondary,
               ])),
         ),
+        centerTitle: true,
         actions: [
           Container(
             margin: const EdgeInsets.only(
@@ -299,179 +446,124 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 16),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              'Add Exercise',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      body: Stack(children: <Widget>[
+        Container(
+          height: size.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).colorScheme.secondary,
+                ]),
+            image: const DecorationImage(
+              image: AssetImage("assets/images/mult_exercise.png"),
+              fit: BoxFit.fitWidth,
             ),
           ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(labelText: 'Name'),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter a name';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _timeController,
-                    decoration: const InputDecoration(
-                        labelText: 'Time (Exercise duration in seconds)'),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter the time';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _repetitionsController,
-                    decoration: const InputDecoration(labelText: 'Repetitions'),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter the repetitions';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TextButton(
-                    onPressed: _addExercise,
-                    child: const Text('ADD EXERCISE'),
-                  ),
-                ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: SizedBox(
+                  width: size.width * .6,
+                  child: const SearchBar(),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Exercise History',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: _exerciseHistory.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Exercise exercise = _exerciseHistory[index];
-                        return ListTile(
-                          leading: const Icon(Icons.fitness_center),
-                          title: Text(exercise.name),
-                          subtitle: Text(
-                              '${exercise.time} minutes, ${exercise.repetitions} repetitions'),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.edit),
-                                onPressed: () => _editExercise(exercise),
+              Expanded(
+                  child: _isLoading
+                      ? ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.all(10),
+                              height: 90,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(13),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    offset: Offset(0, 17),
+                                    blurRadius: 23,
+                                    spreadRadius: -13,
+                                    color: kShadowColor,
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () => _deleteExercise(exercise),
+                              child: Shimmer.fromColors(
+                                baseColor:
+                                    const Color.fromARGB(255, 109, 109, 109),
+                                highlightColor: Colors.grey,
+                                child: Row(
+                                  children: <Widget>[
+                                    const SizedBox(width: 50, height: 50),
+                                    const SizedBox(width: 20),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            width: double.infinity,
+                                            height: 10,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            width: 80,
+                                            height: 10,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            width: 100,
+                                            height: 10,
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const SizedBox(width: 50, height: 50),
+                                  ],
+                                ),
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                            );
+                          })
+                      : AnimatedList(
+                          key: _listKey,
+                          initialItemCount: _exerciseHistory.length,
+                          itemBuilder: (context, index, animation) {
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(-1, 0),
+                                end: const Offset(0, 0),
+                              ).animate(animation),
+                              child: ExerciseListItem(
+                                exercise: _exerciseHistory[index],
+                                onDelete: () =>
+                                    _deleteExercise(_exerciseHistory[index]),
+                                onEdit: () =>
+                                    showEditForm(_exerciseHistory[index]),
+                              ),
+                            );
+                          },
+                        )),
+            ],
           ),
-          // const SizedBox(height: 16),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 16),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: const [
-          //       Text(
-          //         'Exercise History by Date',
-          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          //       ),
-          //       SizedBox(height: 8),
-          //       _selectedDate == null
-          //           ? const Center(
-          //               child: Text('No date selected'),
-          //             )
-          //           : FutureBuilder<List<Exercise>>(
-          //               future:
-          //                   _exerciseService.getExercisesByDate(_selectedDate),
-          //               builder: (BuildContext context,
-          //                   AsyncSnapshot<List<Exercise>> snapshot) {
-          //                 if (snapshot.connectionState ==
-          //                     ConnectionState.waiting) {
-          //                   return const Center(
-          //                     child: CircularProgressIndicator(),
-          //                   );
-          //                 } else if (snapshot.hasError) {
-          //                   return Center(
-          //                     child: Text('Error: ${snapshot.error}'),
-          //                   );
-          //                 } else if (snapshot.data!.isEmpty) {
-          //                   return const Center(
-          //                     child: Text('No exercises on this date'),
-          //                   );
-          //                 } else {
-          //                   List<Exercise>? exercises = snapshot.data;
-          //                   return CalendarCarousel(
-          //                     weekdayTextStyle: const TextStyle(
-          //                       fontWeight: FontWeight.bold,
-          //                     ),
-          //                     weekendTextStyle: const TextStyle(
-          //                       fontWeight: FontWeight.bold,
-          //                       color: Colors.red,
-          //                     ),
-          //                     markedDatesMap: _buildMarkedDatesMap(exercises),
-          //                     onDayPressed:
-          //                         (DateTime date, List<dynamic> events) {
-          //                       setState(() {
-          //                         _selectedDate = date;
-          //                       });
-          //                     },
-          //                     selectedDateTime: _selectedDate,
-          //                     daysHaveCircularBorder: false,
-          //                     showOnlyCurrentMonthDate: true,
-          //                     todayButtonColor: Theme.of(context).accentColor,
-          //                     selectedDayButtonColor:
-          //                         Theme.of(context).primaryColor,
-          //                     selectedDayTextStyle: const TextStyle(
-          //                       fontWeight: FontWeight.bold,
-          //                       color: Colors.white,
-          //                     ),
-          //                     todayTextStyle: const TextStyle(
-          //                       fontWeight: FontWeight.bold,
-          //                       color: Colors.white,
-          //                     ),
-          //                   );
-          //                 }
-          //               },
-          //             ),
-          //     ],
-          //   ),
-          // ),
-        ],
+        )
+      ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showAddForm();
+        },
+        backgroundColor: Colors.white,
+        child: const Icon(Icons.add),
       ),
     );
   }

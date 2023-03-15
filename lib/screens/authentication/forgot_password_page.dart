@@ -119,6 +119,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                     await FirebaseAuth.instance
                                         .sendPasswordResetEmail(
                                             email: email.text);
+                                    if (!mounted) return;
                                     Navigator.pop(context);
                                   } on FirebaseAuthException catch (e) {
                                     if (e.code == 'invalid-email') {
@@ -150,7 +151,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                         );
                                       },
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.lightBlue),
                                   ),
                                 ],
                               ),
