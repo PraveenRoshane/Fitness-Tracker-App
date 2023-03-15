@@ -26,6 +26,8 @@ class ProgressHomePage extends StatelessWidget {
   ];*/
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -142,37 +144,54 @@ class ProgressHomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: FutureBuilder<QuerySnapshot>(
-        future: _reference.get(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text('Something went wrong'),
-            );
-          }
-          if (snapshot.hasData) {
-            QuerySnapshot querySnapshot = snapshot.data!;
-            List<QueryDocumentSnapshot> documents = querySnapshot.docs;
-            List<Workoutmodel> workoutmodel = documents
-                .map((e) => Workoutmodel(
-                    id: e['id'],
-                    goal: e['goal'],
-                    targetdate: e['targetdate'],
-                    milestones: e['milestones']))
-                .toList();
-            return _getBody(workoutmodel);
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: Container(
+        height: size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).colorScheme.secondary,
+              ]),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/progressbackground.jpg"),
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        child: FutureBuilder<QuerySnapshot>(
+          future: _reference.get(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text('Something went wrong'),
+              );
+            }
+            if (snapshot.hasData) {
+              QuerySnapshot querySnapshot = snapshot.data!;
+              List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+              List<Workoutmodel> workoutmodel = documents
+                  .map((e) => Workoutmodel(
+                      id: e['id'],
+                      goal: e['goal'],
+                      targetdate: e['targetdate'],
+                      milestones: e['milestones']))
+                  .toList();
+              return _getBody(workoutmodel);
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const AddGoal()));
         }),
+        backgroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),
     );
@@ -185,18 +204,21 @@ class ProgressHomePage extends StatelessWidget {
           )
         : ListView.builder(
             itemCount: workoutmodel.length,
-            itemBuilder: (context, index) => Card(
-              child: ListTile(
-                title: Text(workoutmodel[index].goal),
-                subtitle: Text('Target Date:${workoutmodel[index].targetdate}'),
-                leading: CircleAvatar(
-                  radius: 25,
-                  child: Text(''),
-                ),
-                trailing: SizedBox(
-                    width: 80,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
+            itemBuilder: (context, index) => Container(
+              height: 90,
+              margin: const EdgeInsets.symmetric(vertical: 7),
+              padding: const EdgeInsets.all(8),
+              child: Card(
+                child: ListTile(
+                  title: Text(workoutmodel[index].goal),
+                  subtitle:
+                      Text('Target Date:${workoutmodel[index].targetdate}'),
+                  leading: CircleAvatar(
+                    radius: 25,
+                    child: Text(''),
+                  ),
+                  trailing: SizedBox(
+                      width: 80,
                       child: Row(
                         children: [
                           InkWell(
@@ -240,8 +262,8 @@ class ProgressHomePage extends StatelessWidget {
                             },
                           ),
                         ],
-                      ),
-                    )),
+                      )),
+                ),
               ),
             ),
           );
