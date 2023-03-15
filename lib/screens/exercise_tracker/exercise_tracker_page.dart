@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_new/Services/exercise_service.dart';
 import 'package:flutter_new/models/exercise_model.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
-import 'package:flutter_new/screens/exercise_tracker/constants.dart';
 import 'package:flutter_new/screens/exercise_tracker/exercise_list_Item.dart';
 import 'package:flutter_new/screens/exercise_tracker/widgets/search_bar.dart';
 import 'package:flutter_new/screens/home/home.dart';
@@ -103,7 +102,7 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
                           20.0,
                         ),
                       ),
-                      color: kBlueLightColor,
+                      color: Color(0xFFC7B8F5),
                       image: DecorationImage(
                         image: AssetImage("assets/images/meditation_bg.png"),
                         fit: BoxFit.fitWidth,
@@ -161,7 +160,7 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: kBlueLightColor,
+                    backgroundColor: const Color(0xFFC7B8F5),
                   ),
                   onPressed: _addExercise,
                   child: const Text('ADD EXERCISE'),
@@ -308,10 +307,18 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
       appBar: AppBar(
         title: const Text(
           "Exercise Tracker",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        elevation: 0.5,
-        iconTheme: const IconThemeData(color: Colors.white),
+        elevation: 0.0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+            );
+          },
+        ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -324,139 +331,30 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
         ),
         centerTitle: true,
         actions: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 16,
-              right: 16,
-            ),
-            child: Stack(
-              children: <Widget>[
-                const Icon(Icons.notifications),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 12,
-                      minHeight: 12,
-                    ),
-                    child: const Text(
-                      '5',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-      drawer: Drawer(
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: const [
-                0.0,
-                1.0
-              ],
-                  colors: [
-                Theme.of(context).primaryColor.withOpacity(0.2),
-                Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-              ])),
-          child: ListView(
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: const [0.0, 1.0],
-                    colors: [
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).colorScheme.secondary,
-                    ],
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.bottomLeft,
-                  child: const Text(
-                    "Fitness Tracker",
-                    style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.home_rounded,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                title: Text(
-                  'Home',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).colorScheme.secondary),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Home()),
-                  );
-                },
-              ),
-              Divider(
-                color: Theme.of(context).primaryColor,
-                height: 1,
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.logout_rounded,
-                  size: _drawerIconSize,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                title: Text(
-                  'Logout',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Theme.of(context).colorScheme.secondary),
-                ),
-                onTap: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-              ),
-            ],
+          IconButton(
+            icon: const Icon(Icons.logout_rounded),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              if (!mounted) return;
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+            },
           ),
-        ),
+        ],
       ),
       body: Stack(children: <Widget>[
         Container(
           height: size.height,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: <Color>[
+                colors: [
                   Theme.of(context).primaryColor,
                   Theme.of(context).colorScheme.secondary,
-                ]),
+                ],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(1.0, 0.0),
+                stops: const [0.0, 1.0],
+                tileMode: TileMode.clamp),
             image: const DecorationImage(
               image: AssetImage("assets/images/mult_exercise.png"),
               fit: BoxFit.fitWidth,
@@ -491,7 +389,7 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
                                     offset: Offset(0, 17),
                                     blurRadius: 23,
                                     spreadRadius: -13,
-                                    color: kShadowColor,
+                                    color: Color(0xFFE6E6E6),
                                   ),
                                 ],
                               ),

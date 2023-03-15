@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_new/screens/exercise_tracker/constants.dart';
 
 class HomeCard extends StatelessWidget {
   final String name;
@@ -27,7 +26,7 @@ class HomeCard extends StatelessWidget {
                 offset: Offset(0, 17),
                 blurRadius: 23,
                 spreadRadius: -13,
-                color: kShadowColor,
+                color: Color(0xFFE6E6E6),
               ),
             ],
           ),
@@ -45,7 +44,7 @@ class HomeCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
-                        border: Border.all(color: kBlueColor),
+                        border: Border.all(color: const Color(0xFF817DC0)),
                       ),
                       child: Icon(icon),
                     ),
