@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/common/theme_helper.dart';
+import 'package:flutter_new/screens/authentication/login_page.dart';
 import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'profile_page.dart';
-import 'package:flutter/services.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -119,29 +120,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
                                       .hasMatch(val)) {
                                 return "Enter a valid email address";
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 20.0),
-                        Container(
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                          child: TextFormField(
-                            onSaved: (value) {
-                              contactNumber = value!;
-                            },
-                            keyboardType: TextInputType.phone,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            maxLength: 10,
-                            decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number", "Enter your mobile number"),
-                            validator: (val) {
-                              if (!(val!.isEmpty) &&
-                                  !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                return "Enter a valid phone number";
                               }
                               return null;
                             },
@@ -315,6 +293,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               },
                             ),
                           ],
+                        ),
+                        const SizedBox(height: 10.0),
+                        Container(
+                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                          child: Text.rich(TextSpan(children: [
+                            const TextSpan(text: "Already have an account? "),
+                            TextSpan(
+                              text: 'Sign In',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginPage()));
+                                },
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                          ])),
                         ),
                       ],
                     ),
