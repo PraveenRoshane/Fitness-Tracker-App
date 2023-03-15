@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
             .copyWith(secondary: _accentColor),
       ),
-      home: SplashScreen(title: 'Flutter Login UI'),
+      home: const SplashScreen(title: 'Flutter Login UI'),
     );
   }
 }
