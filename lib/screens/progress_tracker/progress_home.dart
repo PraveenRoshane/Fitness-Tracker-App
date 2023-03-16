@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_new/screens/home/home.dart';
-//import 'package:flutter_application_1/workoutcalender.dart';
 import 'package:flutter_new/screens/progress_tracker/add_progress.dart';
+import 'package:flutter_new/screens/progress_tracker/progress_calendar/progress_calendar_home.dart';
+//import 'package:flutter_new/screens/progress_tracker/progress_calendar/progress_calendar_home.dart';
 import 'package:flutter_new/screens/progress_tracker/update_progress.dart';
 import '../../models/progress_model.dart';
 import '../authentication/login_page.dart';
@@ -254,11 +255,11 @@ class ProgressHomePage extends StatelessWidget {
                               color: Colors.black,
                             ),
                             onTap: () {
-                              /*Navigator.pushReplacement(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => WorkoutCalendar(),
-                                  ));*/
+                                    builder: (context) => CalendarHomePage(),
+                                  ));
                             },
                           ),
                         ],
