@@ -10,6 +10,7 @@ class UpdateGoal extends StatelessWidget {
   final Workoutmodel workoutmodel;
   final TextEditingController goalcontroller = TextEditingController();
   final TextEditingController targetdatecontroller = TextEditingController();
+  final TextEditingController startdatecontroller = TextEditingController();
   final TextEditingController milestonecontroller = TextEditingController();
 
   UpdateGoal({super.key, required this.workoutmodel});
@@ -18,49 +19,93 @@ class UpdateGoal extends StatelessWidget {
   Widget build(BuildContext context) {
     goalcontroller.text = workoutmodel.goal;
     targetdatecontroller.text = workoutmodel.targetdate;
-    milestonecontroller.text = workoutmodel.milestones;
+    startdatecontroller.text = workoutmodel.targetdate;
+    milestonecontroller.text = '${workoutmodel.milestonecount}';
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Update Goal'),
-          centerTitle: true,
+          title: const Text(
+            'Update Progress',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          elevation: 0.5,
+          iconTheme: const IconThemeData(color: Colors.white),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).colorScheme.secondary,
+                ])),
+          ),
+          actions: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 16,
+                right: 16,
+              ),
+              child: Stack(),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(children: [
             getField(hintText: 'Goal', controller: goalcontroller),
+            getField(hintText: 'Start Date', controller: startdatecontroller),
             getField(hintText: 'Target Date', controller: targetdatecontroller),
-            getField(hintText: 'Milestone', controller: milestonecontroller),
+            getField(
+                hintText: 'Number of Milestones',
+                controller: milestonecontroller),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Workoutmodel updatedworkout = Workoutmodel(
-                          id: workoutmodel.id,
-                          goal: goalcontroller.text,
-                          targetdate: targetdatecontroller.text,
-                          milestones: milestonecontroller.text);
-                      final collectionRefernece = FirebaseFirestore.instance
-                          .collection('workout progress');
-                      collectionRefernece
-                          .doc(updatedworkout.id)
-                          .update(updatedworkout.toJson())
-                          .whenComplete(() {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProgressHomePage()));
-                      });
-                    },
-                    child: const Text("Update")),
-                ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                    onPressed: () {
-                      goalcontroller.text = '';
-                      targetdatecontroller.text = '';
-                      milestonecontroller.text = '';
-                    },
-                    child: const Text("Reset")),
+                SizedBox(
+                  width: 200.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Workoutmodel updatedworkout = Workoutmodel(
+                            id: workoutmodel.id,
+                            goal: goalcontroller.text,
+                            targetdate: targetdatecontroller.text,
+                            startdate: startdatecontroller.text,
+                            milestonecount:
+                                int.parse(milestonecontroller.text));
+                        final collectionRefernece = FirebaseFirestore.instance
+                            .collection('workout progress');
+                        collectionRefernece
+                            .doc(updatedworkout.id)
+                            .update(updatedworkout.toJson())
+                            .whenComplete(() {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProgressHomePage()));
+                        });
+                      },
+                      child: const Text(
+                        "Update",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+                SizedBox(
+                  width: 200.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey),
+                      onPressed: () {
+                        goalcontroller.text = '';
+                        targetdatecontroller.text = '';
+                        startdatecontroller.text = '';
+                        milestonecontroller.text = '';
+                      },
+                      child: const Text(
+                        "Reset",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
               ],
             )
           ]),

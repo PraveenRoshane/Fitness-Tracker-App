@@ -54,8 +54,22 @@ class ProgressHomePage extends StatelessWidget {
               top: 16,
               right: 16,
             ),
-            child: Stack(),
-          )
+            child: Container(
+              child: InkWell(
+                child: Icon(
+                  Icons.calendar_month,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CalendarHomePage(),
+                      ));
+                },
+              ),
+            ),
+          ),
         ],
       ),
       drawer: Drawer(
@@ -176,7 +190,8 @@ class ProgressHomePage extends StatelessWidget {
                       id: e['id'],
                       goal: e['goal'],
                       targetdate: e['targetdate'],
-                      milestones: e['milestones']))
+                      startdate: e['startdate'],
+                      milestonecount: e['milestonecount']))
                   .toList();
               return _getBody(workoutmodel);
             } else {
@@ -206,64 +221,86 @@ class ProgressHomePage extends StatelessWidget {
         : ListView.builder(
             itemCount: workoutmodel.length,
             itemBuilder: (context, index) => Container(
-              height: 90,
+              height: 120,
               margin: const EdgeInsets.symmetric(vertical: 7),
               padding: const EdgeInsets.all(8),
               child: Card(
-                child: ListTile(
-                  title: Text(workoutmodel[index].goal),
-                  subtitle:
-                      Text('Target Date:${workoutmodel[index].targetdate}'),
-                  leading: CircleAvatar(
-                    radius: 25,
-                    child: Text(''),
-                  ),
-                  trailing: SizedBox(
-                      width: 80,
-                      child: Row(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          workoutmodel[index].goal,
+                        ),
+                      ),
+                      subtitle: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.green,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UpdateGoal(
-                                          workoutmodel: workoutmodel[index])));
-                            },
+                          Text(
+                            'Start Date:${workoutmodel[index].startdate}',
                           ),
-                          InkWell(
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                            onTap: () {
-                              _reference.doc(workoutmodel[index].id).delete();
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProgressHomePage(),
-                                  ));
-                            },
+                          SizedBox(
+                            height: 10,
                           ),
-                          InkWell(
-                            child: Icon(
-                              Icons.calendar_month,
-                              color: Colors.black,
-                            ),
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CalendarHomePage(),
-                                  ));
-                            },
+                          Text(
+                            'Target Date:${workoutmodel[index].targetdate}',
                           ),
                         ],
-                      )),
+                      ),
+                      leading: CircleAvatar(
+                        radius: 25,
+                        child: Text('${workoutmodel[index].milestonecount}'),
+                      ),
+                      trailing: SizedBox(
+                          width: 80,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                InkWell(
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: Colors.green,
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => UpdateGoal(
+                                                workoutmodel:
+                                                    workoutmodel[index])));
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                InkWell(
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ),
+                                  onTap: () {
+                                    _reference
+                                        .doc(workoutmodel[index].id)
+                                        .delete();
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProgressHomePage(),
+                                        ));
+                                  },
+                                ),
+                              ],
+                            ),
+                          )),
+                    ),
+                  ],
                 ),
               ),
             ),

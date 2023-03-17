@@ -18,6 +18,7 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final TextEditingController goalcontroller = TextEditingController();
   final TextEditingController targetdatecontroller = TextEditingController();
+  final TextEditingController startdatecontroller = TextEditingController();
   final TextEditingController milestonecontroller = TextEditingController();
 
   @override
@@ -35,41 +36,84 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Add New Goal'),
-          centerTitle: true,
+      appBar: AppBar(
+        title: const Text(
+          'Add New Goal',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        body: SingleChildScrollView(
-          child: Column(children: [
-            const SizedBox(height: 20),
-            getField(hintText: 'Goal', controller: goalcontroller),
-            getField(hintText: 'Target Date', controller: targetdatecontroller),
-            getField(hintText: 'Milestone', controller: milestonecontroller),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
+        elevation: 0.5,
+        iconTheme: const IconThemeData(color: Colors.white),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).colorScheme.secondary,
+              ])),
+        ),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(
+              top: 16,
+              right: 16,
+            ),
+            child: Stack(),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          const SizedBox(height: 20),
+          getField(hintText: 'Goal', controller: goalcontroller),
+          getField(hintText: 'Start Date', controller: startdatecontroller),
+          getField(hintText: 'Target Date', controller: targetdatecontroller),
+          getField(
+              hintText: 'Number of Milestones',
+              controller: milestonecontroller),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: 200.0,
+                height: 50.0,
+                child: ElevatedButton(
                     onPressed: () {
                       Workoutmodel workout = Workoutmodel(
                           goal: goalcontroller.text,
                           targetdate: targetdatecontroller.text,
-                          milestones: milestonecontroller.text);
+                          startdate: startdatecontroller.text,
+                          milestonecount: int.parse(milestonecontroller.text));
                       addNavigateHome(workout, context);
                     },
-                    child: const Text("Add")),
-                ElevatedButton(
+                    child: const Text(
+                      "Add",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ),
+              SizedBox(
+                width: 200.0,
+                height: 50.0,
+                child: ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.grey),
                     onPressed: () {
                       goalcontroller.text = '';
                       targetdatecontroller.text = '';
+                      startdatecontroller.text = '';
                       milestonecontroller.text = '';
                     },
-                    child: const Text("Reset")),
-              ],
-            )
-          ]),
-        ));
+                    child: const Text(
+                      "Reset",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+              ),
+            ],
+          )
+        ]),
+      ),
+    );
   }
 
   Widget getField(
