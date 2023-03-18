@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
+import 'package:flutter_new/screens/authentication/profile_page.dart';
 import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
 import 'package:flutter_new/screens/exercise_tracker/exercise_splash_screen.dart';
 import 'package:flutter_new/screens/home/widget/home_card.dart';
@@ -72,16 +73,20 @@ class _HomeState extends State<Home> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.settings_rounded,
+                  Icons.person_2_rounded,
                   size: _drawerIconSize,
                 ),
                 title: Text(
-                  'Settings',
+                  'Profile',
                   style: TextStyle(
                     fontSize: _drawerFontSize,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  if (!mounted) return;
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()));
+                },
               ),
               ListTile(
                 leading: Icon(
