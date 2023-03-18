@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.bottomLeft,
                   child: const Text(
-                    "Fitness Tracker",
+                    "Weight Tracker",
                     style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
