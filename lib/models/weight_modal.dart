@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Weight {
   String id;
-  final String name;
+  final String date;
   final int age;
   final num weight;
 
 
   Weight({
     required this.id,
-    required this.name,
+    required this.date,
     required this.age,
     required this.weight,
 
@@ -20,7 +20,8 @@ class Weight {
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     return Weight(
       id: snapshot.id,
-      name: snapshot.data()?['name'],
+
+      date: snapshot.data()?['date'],
       age: snapshot.data()?['age'],
       weight: snapshot.data()?['weight'],
 
@@ -30,7 +31,7 @@ class Weight {
 
   Map<String, dynamic> toMap() {
     return {
-      'name': name,
+      'date': date,
       'age': age,
       'weight': weight,
 
@@ -41,14 +42,14 @@ class Weight {
   Map<String, dynamic> toJson() => {
     "id": id,
     "age": age,
-    "name": name,
+    "date": date,
     "weight": weight,
 
   };
   factory Weight.fromJson(Map<String, dynamic> json) => Weight(
     id: json["id"],
     age: json["age"],
-    name: json["name"],
+    date: json["date"],
     weight: json["weight"].toDouble(),
 
 

@@ -24,193 +24,240 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Weight List',
+      appBar: AppBar(
+        title: const Text('Weight List',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 
-          elevation: 0.5,
-          iconTheme: const IconThemeData(color: Colors.white),
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).colorScheme.secondary,
-                    ])),
-          ),
-          centerTitle: true,
-          actions: [
-            Container(
-              margin: const EdgeInsets.only(
-                top: 16,
-                right: 16,
-              ),
-              child: Stack(
-                // children: <Widget>[
-                //   const Icon(Icons.notifications),
-                //   Positioned(
-                //     right: 0,
-                //     child: Container(
-                //       padding: const EdgeInsets.all(1),
-                //       decoration: BoxDecoration(
-                //         color: Colors.red,
-                //         borderRadius: BorderRadius.circular(6),
-                //       ),
-                //       constraints: const BoxConstraints(
-                //         minWidth: 12,
-                //         minHeight: 12,
-                //       ),
-                //       child: const Text(
-                //         '5',
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //           fontSize: 8,
-                //         ),
-                //         textAlign: TextAlign.center,
-                //       ),
-                //     ),
-                //   )
-                // ],
-              ),
-            )
-          ],
+        elevation: 0.5,
+        iconTheme: const IconThemeData(color: Colors.white),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                    Theme
+                        .of(context)
+                        .primaryColor,
+                    Theme
+                        .of(context)
+                        .colorScheme
+                        .secondary,
+                  ])),
         ),
-        drawer: Drawer(
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: const [
-                      0.0,
-                      1.0
-                    ],
-                    colors: [
-                      Theme.of(context).primaryColor.withOpacity(0.2),
-                      Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-                    ])),
-            child: ListView(
-              children: [
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: const [0.0, 1.0],
-                      colors: [
-                        Theme.of(context).primaryColor,
-                        Theme.of(context).colorScheme.secondary,
-                      ],
-                    ),
-                  ),
-                  child: Container(
-                    alignment: Alignment.bottomLeft,
-                    child: const Text(
-                      "Fitness Tracker",
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.home_rounded,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  title: Text(
-                    'Home',
-                    style: TextStyle(
-                        fontSize: _drawerFontSize,
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Home()),
-                    );
-                  },
-                ),
-                Divider(
-                  color: Theme.of(context).primaryColor,
-                  height: 1,
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.logout_rounded,
-                    size: _drawerIconSize,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  title: Text(
-                    'Logout',
-                    style: TextStyle(
-                        fontSize: _drawerFontSize,
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                  onTap: () async {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
-                    );
-                  },
-                ),
-              ],
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(
+              top: 16,
+              right: 16,
             ),
+            child: Stack(
+              // children: <Widget>[
+              //   const Icon(Icons.notifications),
+              //   Positioned(
+              //     right: 0,
+              //     child: Container(
+              //       padding: const EdgeInsets.all(1),
+              //       decoration: BoxDecoration(
+              //         color: Colors.red,
+              //         borderRadius: BorderRadius.circular(6),
+              //       ),
+              //       constraints: const BoxConstraints(
+              //         minWidth: 12,
+              //         minHeight: 12,
+              //       ),
+              //       child: const Text(
+              //         '5',
+              //         style: TextStyle(
+              //           color: Colors.white,
+              //           fontSize: 8,
+              //         ),
+              //         textAlign: TextAlign.center,
+              //       ),
+              //     ),
+              //   )
+              // ],
+            ),
+          )
+        ],
+      ),
+      drawer: Drawer(
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: const [
+                    0.0,
+                    1.0
+                  ],
+                  colors: [
+                    Theme
+                        .of(context)
+                        .primaryColor
+                        .withOpacity(0.2),
+                    Theme
+                        .of(context)
+                        .colorScheme
+                        .secondary
+                        .withOpacity(0.5),
+                  ])),
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    stops: const [0.0, 1.0],
+                    colors: [
+                      Theme
+                          .of(context)
+                          .primaryColor,
+                      Theme
+                          .of(context)
+                          .colorScheme
+                          .secondary,
+                    ],
+                  ),
+                ),
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  child: const Text(
+                    "Fitness Tracker",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.home_rounded,
+                  size: _drawerIconSize,
+                  color: Theme
+                      .of(context)
+                      .colorScheme
+                      .secondary,
+                ),
+                title: Text(
+                  'Home',
+                  style: TextStyle(
+                      fontSize: _drawerFontSize,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .secondary),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Home()),
+                  );
+                },
+              ),
+              Divider(
+                color: Theme
+                    .of(context)
+                    .primaryColor,
+                height: 1,
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.logout_rounded,
+                  size: _drawerIconSize,
+                  color: Theme
+                      .of(context)
+                      .colorScheme
+                      .secondary,
+                ),
+                title: Text(
+                  'Logout',
+                  style: TextStyle(
+                      fontSize: _drawerFontSize,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .secondary),
+                ),
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+              ),
+            ],
           ),
         ),
-        body: FutureBuilder<QuerySnapshot>(
+      ),
+      body: Container(
+        height: size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                Theme
+                    .of(context)
+                    .primaryColor,
+                Theme
+                    .of(context)
+                    .colorScheme
+                    .secondary,
+              ]),
+          image: const DecorationImage(
+            image: AssetImage("assets/images/icons8-fitness-64.png"),
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        child: FutureBuilder<QuerySnapshot>(
           future: _reference.get(),
           builder: (context, snapshot) {
-            // Check for error
             if (snapshot.hasError) {
               return const Center(
                 child: Text('Something went wrong'),
               );
             }
-            // if data received
             if (snapshot.hasData) {
               QuerySnapshot querySnapshot = snapshot.data!;
+
               List<QueryDocumentSnapshot> documents = querySnapshot.docs;
               // Convert data to List
               List<Weight> weights = documents
-                  .map((e) => Weight(
-                id: e['id'],
-                age: e['age'],
-                name: e['name'],
-                weight: e['weight'],
-
-              ))
+                  .map((e) =>
+                  Weight(
+                    id: e['id'],
+                    age: e['age'],
+                    date: e['date'],
+                    weight: e['weight'],))
                   .toList();
               return _getBody(weights);
             } else {
-              // Show Loading
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
           },
-          // child: _getBody()
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: (() {
-            //
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const AddWeight(),
-                ));
-            //
-          }),
-          child: const Icon(Icons.add),
-        ));
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddWeight()));
+        }),
+        backgroundColor: Colors.white,
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 
   Widget _getBody(weights) {
@@ -230,7 +277,15 @@ class HomePage extends StatelessWidget {
             ? Colors.red
             : Colors.green,
         child: ListTile(
-          title: Text(weights[index].name),
+          title:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(weights[index].date),
+
+            ],
+          ),
           subtitle: Text('Age: ${weights[index].age}'),
           leading: CircleAvatar(
             radius: 25,
@@ -259,6 +314,7 @@ class HomePage extends StatelessWidget {
                 ),
                 InkWell(
                   child: const Icon(Icons.delete),
+
                   onTap: () {
                     //
                     _reference.doc(weights[index].id).delete();

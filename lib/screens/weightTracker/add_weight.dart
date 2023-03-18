@@ -130,12 +130,12 @@ class _AddWeightState extends State<AddWeight> {
             getMyField(
                 focusNode: focusNode,
                 hintText: 'Age',
-                textInputType: TextInputType.number,
+                //textInputType: TextInputType.number,
                 controller: _rollController),
-            getMyField(hintText: 'Name', controller: _nameController),
+            getMyField(hintText: 'Date', controller: _nameController),
             getMyField(
                 hintText: 'Weight',
-                textInputType: TextInputType.number,
+                //textInputType: TextInputType.number,
                 controller: _weightController),
             // getMyField(
             //     hintText: 'Date',
@@ -154,7 +154,7 @@ class _AddWeightState extends State<AddWeight> {
                       //
                       Weight weight = Weight(
                         age: int.parse(_rollController.text),
-                        name: _nameController.text,
+                        date: _nameController.text,
                         weight: double.parse(_weightController.text), id: '',
                        // date: DateTime.now(),
                         //time: int.parse(_timeController.text), id: '',
@@ -194,7 +194,7 @@ class _AddWeightState extends State<AddWeight> {
 
   Widget getMyField(
       {required String hintText,
-      TextInputType textInputType = TextInputType.name,
+
       required TextEditingController controller,
       FocusNode? focusNode}) {
     return Padding(
@@ -202,7 +202,7 @@ class _AddWeightState extends State<AddWeight> {
       child: TextField(
         focusNode: focusNode,
         controller: controller,
-        keyboardType: textInputType,
+
         decoration: InputDecoration(
             hintText: 'Enter $hintText',
             labelText: hintText,

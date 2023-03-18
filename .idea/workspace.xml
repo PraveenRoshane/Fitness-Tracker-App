@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c52f4383-5a7b-4da0-9806-39d93b09fb3e" name="Changes" comment="">
+    <list default="true" id="c52f4383-5a7b-4da0-9806-39d93b09fb3e" name="Changes" comment="updated weight tracker">
+      <change afterPath="$PROJECT_DIR$/assets/images/icons8-fitness-64.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/weight.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flutter_new.iml" beforeDir="false" afterPath="$PROJECT_DIR$/flutter_new.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/exercise_tracker/exercise_tracker_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/exercise_tracker/exercise_tracker_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/weight_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/weight_modal.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/add_weight.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/add_weight.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/update_weight.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/update_weight.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +74,14 @@
       <option name="presentableId" value="Default" />
       <updated>1678557098911</updated>
     </task>
+    <task id="LOCAL-00001" summary="updated weight tracker">
+      <created>1678907643446</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1678907643446</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -97,5 +100,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated weight tracker" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated weight tracker" />
   </component>
 </project>
