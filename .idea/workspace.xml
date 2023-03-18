@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c52f4383-5a7b-4da0-9806-39d93b09fb3e" name="Changes" comment="updated weight tracker">
-      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/add_weight.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/add_weight.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/weightlift.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679157233144</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated weight tracker">
+      <created>1679157455740</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679157455740</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">

@@ -215,7 +215,7 @@ class HomePage extends StatelessWidget {
                     .secondary,
               ]),
           image: const DecorationImage(
-            image: AssetImage("assets/images/icons8-fitness-64.png"),
+            image: AssetImage("assets/images/weightlift.png"),
             fit: BoxFit.fitWidth,
           ),
         ),
