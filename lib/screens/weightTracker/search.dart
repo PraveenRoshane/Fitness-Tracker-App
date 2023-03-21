@@ -1,115 +1,114 @@
+// Search Page
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/models/weight_modal.dart';
+import 'package:flutter_new/models/weight_modal.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
 import 'package:flutter_new/screens/home/home.dart';
-import 'package:flutter_new/screens/weightTracker/add_weight.dart';
+import 'package:flutter_new/screens/weightTracker/home_page.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_new/screens/weightTracker/search.dart';
 
+import '../../models/weight_modal.dart';
 
+class SearchPage extends StatelessWidget {
+  const SearchPage({Key? key}) : super(key: key);
 
-import 'dart:developer';
-
-import 'package:flutter_new/screens/weightTracker/widget/search_bar.dart';
-
-
-
-
-
-
-class SearchBar extends StatelessWidget {
-  //const SearchBar({super.key});
-  final CollectionReference _reference =
-      FirebaseFirestore.instance.collection('weights');
-  final double _drawerIconSize = 24;
-  final double _drawerFontSize = 17;
+  get weights => null;
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    TextEditingController editingController = TextEditingController();
+
+    final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
+
+    final CollectionReference _reference =
+    FirebaseFirestore.instance.collection('weights');
+    final TextEditingController _searchController = TextEditingController();
+    final double _drawerIconSize = 24;
+    final double _drawerFontSize = 17;
     return Scaffold(
-
       appBar: AppBar(
-        title: const Text('Weight List',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        // The search area here
+          title: Container(
+            width: double.infinity,
+            height: 40,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: Center(
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                    //prefixIcon: const Icon(Icons.search,color: Colors.black,),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () => _searchController.clear(),
 
-        elevation: 0.5,
-        iconTheme: const IconThemeData(color: Colors.white),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[
-                    Theme
-                        .of(context)
-                        .primaryColor,
-                    Theme
-                        .of(context)
-                        .colorScheme
-                        .secondary,
-                  ])),
+                    ),
+                    prefixIcon: IconButton(
+                      icon: Icon(Icons.search, color: Colors.black,),
+                      onPressed: () {
+                        // Perform the search here
+                      },
+                    ),
+                    hintText: 'Search...',
+                    border: InputBorder.none),
 
-        ),
-
-        centerTitle: true,
-        //
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(
-              top: 16,
-              right: 16,
-            ),
-            child: Container(
-              child: InkWell(
-                child: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SearchPage(),
-                      ));
-                },
               ),
+
             ),
-          ),
-          // IconButton(
-          //     onPressed: () => Navigator.of(context)
-          //        .push(MaterialPageRoute(builder:(_) => Container())),
-          //            icon: const Icon(Icons.search)
-      //    )
 
 
+          )
 
-            //   SearchBar( margin: const EdgeInsets.symmetric(vertical: 10),
-            //     padding: const EdgeInsets.all(10),
-            //     height: 90,
-            //     decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.circular(13),
-            //       boxShadow: const [
-            //         BoxShadow(
-            //           offset: Offset(0, 17),
-            //           blurRadius: 23,
-            //           spreadRadius: -13,
-            //           color: Color(0xFFE6E6E6),
-            //         ),
-            //       ],
-            //     )
-            //
-            // )
 
-        ],
       ),
+
+
+
+      body:FutureBuilder<QuerySnapshot>(
+
+        future: _reference.get(),
+
+        builder: (context, snapshot) {
+
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Something went wrong'),
+            );
+          }
+
+          if (snapshot.hasData) {
+            QuerySnapshot querySnapshot = snapshot.data!;
+
+            List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+            // Convert data to List
+            List<Weight> weights = documents
+                .map((e) =>
+                Weight(
+                  id: e['id'],
+                  age: e['age'],
+                  date: e['date'],
+                  weight: e['weight'],))
+                .toList();
+            return _getBody(weights);
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+
+            );
+
+
+          }
+
+        },
+
+      ),
+
 
       drawer: Drawer(
         child: Container(
+
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -131,7 +130,9 @@ class SearchBar extends StatelessWidget {
                   ])),
 
           child: ListView(
+
             children: [
+
               DrawerHeader(
                 decoration: BoxDecoration(
                   color: Theme
@@ -151,7 +152,11 @@ class SearchBar extends StatelessWidget {
                           .secondary,
                     ],
                   ),
+
                 ),
+
+
+
                 child: Container(
                   alignment: Alignment.bottomLeft,
                   child: const Text(
@@ -188,6 +193,8 @@ class SearchBar extends StatelessWidget {
                   );
                 },
               ),
+
+
               Divider(
                 color: Theme
                     .of(context)
@@ -220,72 +227,16 @@ class SearchBar extends StatelessWidget {
                   );
                 },
               ),
+
             ],
           ),
         ),
 
-      ),
-      body: Container(
 
-        height: size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Theme
-                    .of(context)
-                    .primaryColor,
-                Theme
-                    .of(context)
-                    .colorScheme
-                    .secondary,
-              ]),
-          image: const DecorationImage(
-            image: AssetImage("assets/images/weightlift.png"),
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-
-        child: FutureBuilder<QuerySnapshot>(
-          future: _reference.get(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text('Something went wrong'),
-              );
-            }
-            if (snapshot.hasData) {
-              QuerySnapshot querySnapshot = snapshot.data!;
-
-              List<QueryDocumentSnapshot> documents = querySnapshot.docs;
-              // Convert data to List
-              List<Weight> weights = documents
-                  .map((e) =>
-                  Weight(
-                    id: e['id'],
-                    age: e['age'],
-                    date: e['date'],
-                    weight: e['weight'],))
-                  .toList();
-              return _getBody(weights);
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddWeight()));
-        }),
-        backgroundColor: Colors.white,
-        child: const Icon(Icons.add),
-      ),
+
     );
+
   }
 
   Widget _getBody(weights) {
@@ -345,6 +296,7 @@ class SearchBar extends StatelessWidget {
 
                   onTap: () {
                     //
+                    var _reference;
                     _reference.doc(weights[index].id).delete();
                     // To refresh
                     Navigator.pushReplacement(
@@ -362,6 +314,34 @@ class SearchBar extends StatelessWidget {
         ),
       ),
     );
+    
   }
 
+  void filterSearchResults(String query) {
+    List<String> dummySearchList = <String>[];
+    dummySearchList.addAll(Weight as Iterable<String>);
+    if(query.isNotEmpty) {
+      List<String> dummyListData = <String>[];
+      dummySearchList.forEach((item) {
+        if(item.contains(query)) {
+          dummyListData.add(item);
+        }
+      });
+      setState(() {
+        weights.clear();
+        weights.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        weights.clear();
+        weights.addAll(Weight);
+      });
+    }
+
+  }
+
+
+
+  void setState(Null Function() param0) {}
 }

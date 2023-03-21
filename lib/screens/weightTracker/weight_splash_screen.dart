@@ -16,7 +16,7 @@ class _WeightSplashScreenState extends State<WeightSplashScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  HomePage()),
+        MaterialPageRoute(builder: (context) =>  SearchBar()),
       );
     });
   }

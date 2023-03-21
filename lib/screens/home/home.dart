@@ -218,7 +218,7 @@ class _HomeState extends State<Home> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage()));
+                        builder: (context) => SearchBar()));
               },
               title: "Weight Tracker",
               gradientStartColor: const Color(0xffFFD541),

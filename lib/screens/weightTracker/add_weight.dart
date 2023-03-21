@@ -224,7 +224,7 @@ void addWeightAndNavigateToHome(Weight weight, BuildContext context) {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => SearchBar(),
         ),
         (route) => false,
       );

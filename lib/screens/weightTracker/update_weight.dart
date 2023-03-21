@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_new/models/weight_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/models/weight_modal.dart';
+import 'package:flutter_new/screens/home/home.dart';
 import 'package:flutter_new/screens/weightTracker/home_page.dart';
 
 
@@ -113,7 +114,7 @@ class UpdateWeight extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomePage(),
+                              builder: (context) => SearchBar(),
                             ));
                       });
                       //
