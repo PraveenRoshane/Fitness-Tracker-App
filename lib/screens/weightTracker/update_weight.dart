@@ -13,8 +13,6 @@ class UpdateWeight extends StatelessWidget {
   final TextEditingController _rollController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
-  // final TextEditingController _dateController = TextEditingController();
-  // final TextEditingController _timeController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
   UpdateWeight({super.key, required this.weight});
@@ -100,8 +98,6 @@ class UpdateWeight extends StatelessWidget {
                         age: int.parse(_rollController.text),
                         date: _nameController.text,
                         weight: double.parse(_weightController.text),
-                        //date: DateTime.now(),
-                        //time: int.parse(_timeController.text)
                       );
                       //
                       final collectionReference =
@@ -117,21 +113,16 @@ class UpdateWeight extends StatelessWidget {
                               builder: (context) => SearchBar(),
                             ));
                       });
-                      //
                     },
                     child: const Text('Update')),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueGrey),
                     onPressed: () {
-                      //
                       _rollController.text = '';
                       _nameController.text = '';
                       _weightController.text = '';
-                     // _dateController.text = '';
-                     // _timeController.text = '';
                       focusNode.requestFocus();
-                      //
                     },
                     child: const Text('Reset')),
               ],
@@ -144,15 +135,12 @@ class UpdateWeight extends StatelessWidget {
 
   Widget getMyField(
       {required String hintText,
-
         required TextEditingController controller,
         FocusNode? focusNode}) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: TextField(
-
         controller: controller,
-
         decoration: InputDecoration(
             hintText: 'Enter $hintText',
             labelText: hintText,

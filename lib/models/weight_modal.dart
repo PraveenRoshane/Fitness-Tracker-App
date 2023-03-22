@@ -5,27 +5,19 @@ class Weight {
   final String date;
   final int age;
   final num weight;
-
-
   Weight({
     required this.id,
     required this.date,
     required this.age,
     required this.weight,
-
-
   });
-
   factory Weight.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
     return Weight(
       id: snapshot.id,
-
       date: snapshot.data()?['date'],
       age: snapshot.data()?['age'],
       weight: snapshot.data()?['weight'],
-
-
     );
   }
 
@@ -34,11 +26,8 @@ class Weight {
       'date': date,
       'age': age,
       'weight': weight,
-
-
     };
   }
-
   Map<String, dynamic> toJson() => {
     "id": id,
     "age": age,
@@ -51,9 +40,5 @@ class Weight {
     age: json["age"],
     date: json["date"],
     weight: json["weight"].toDouble(),
-
-
-
   );
-
 }

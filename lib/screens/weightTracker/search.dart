@@ -3,13 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/models/weight_modal.dart';
-import 'package:flutter_new/models/weight_modal.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
 import 'package:flutter_new/screens/home/home.dart';
 import 'package:flutter_new/screens/weightTracker/home_page.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
 
-import '../../models/weight_modal.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -20,7 +18,7 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController editingController = TextEditingController();
 
-    final duplicateItems = List<String>.generate(10000, (i) => "Item $i");
+   // final duplicateItems = List<String>.generate(100, (i) => "Weight $i");
 
     final CollectionReference _reference =
     FirebaseFirestore.instance.collection('weights');
@@ -43,7 +41,6 @@ class SearchPage extends StatelessWidget {
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.clear),
                       onPressed: () => _searchController.clear(),
-
                     ),
                     prefixIcon: IconButton(
                       icon: Icon(Icons.search, color: Colors.black,),
@@ -53,34 +50,21 @@ class SearchPage extends StatelessWidget {
                     ),
                     hintText: 'Search...',
                     border: InputBorder.none),
-
               ),
-
             ),
-
-
           )
-
-
       ),
 
-
-
       body:FutureBuilder<QuerySnapshot>(
-
         future: _reference.get(),
-
         builder: (context, snapshot) {
-
           if (snapshot.hasError) {
             return const Center(
               child: Text('Something went wrong'),
             );
           }
-
           if (snapshot.hasData) {
             QuerySnapshot querySnapshot = snapshot.data!;
-
             List<QueryDocumentSnapshot> documents = querySnapshot.docs;
             // Convert data to List
             List<Weight> weights = documents
@@ -95,20 +79,12 @@ class SearchPage extends StatelessWidget {
           } else {
             return const Center(
               child: CircularProgressIndicator(),
-
             );
-
-
           }
-
         },
-
       ),
-
-
       drawer: Drawer(
         child: Container(
-
           decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -130,9 +106,7 @@ class SearchPage extends StatelessWidget {
                   ])),
 
           child: ListView(
-
             children: [
-
               DrawerHeader(
                 decoration: BoxDecoration(
                   color: Theme
@@ -152,11 +126,7 @@ class SearchPage extends StatelessWidget {
                           .secondary,
                     ],
                   ),
-
                 ),
-
-
-
                 child: Container(
                   alignment: Alignment.bottomLeft,
                   child: const Text(
@@ -193,8 +163,6 @@ class SearchPage extends StatelessWidget {
                   );
                 },
               ),
-
-
               Divider(
                 color: Theme
                     .of(context)
@@ -227,18 +195,12 @@ class SearchPage extends StatelessWidget {
                   );
                 },
               ),
-
             ],
           ),
         ),
-
-
       ),
-
     );
-
   }
-
   Widget _getBody(weights) {
     return weights.isEmpty
         ? const Center(
@@ -262,7 +224,6 @@ class SearchPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(weights[index].date),
-
             ],
           ),
           subtitle: Text('Age: ${weights[index].age}'),
@@ -281,21 +242,17 @@ class SearchPage extends StatelessWidget {
                     color: Colors.black.withOpacity(0.75),
                   ),
                   onTap: () {
-                    //
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
                               UpdateWeight(weight: weights[index]),
                         ));
-                    //
                   },
                 ),
                 InkWell(
                   child: const Icon(Icons.delete),
-
                   onTap: () {
-                    //
                     var _reference;
                     _reference.doc(weights[index].id).delete();
                     // To refresh
@@ -304,8 +261,6 @@ class SearchPage extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => SearchBar(),
                         ));
-
-                    //
                   },
                 ),
               ],
@@ -314,19 +269,17 @@ class SearchPage extends StatelessWidget {
         ),
       ),
     );
-    
   }
-
   void filterSearchResults(String query) {
     List<String> dummySearchList = <String>[];
     dummySearchList.addAll(Weight as Iterable<String>);
     if(query.isNotEmpty) {
       List<String> dummyListData = <String>[];
-      dummySearchList.forEach((item) {
-        if(item.contains(query)) {
-          dummyListData.add(item);
+      for (var weight in dummySearchList) {
+        if(weight.contains(query)) {
+          dummyListData.add(weight);
         }
-      });
+      }
       setState(() {
         weights.clear();
         weights.addAll(dummyListData);
@@ -338,10 +291,6 @@ class SearchPage extends StatelessWidget {
         weights.addAll(Weight);
       });
     }
-
   }
-
-
-
   void setState(Null Function() param0) {}
 }

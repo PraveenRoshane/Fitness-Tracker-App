@@ -15,10 +15,9 @@ class AddWeight extends StatefulWidget {
 
 
 class _AddWeightState extends State<AddWeight> {
-  //final TextEditingController _datetimeController = TextEditingController();
+
   final TextEditingController _rollController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
- // final TextEditingController _timeController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   List<Weight> _weightHistory = [];
@@ -44,29 +43,6 @@ class _AddWeightState extends State<AddWeight> {
       _isLoading = false;
     });
   }
-
-  // Future<void> _addWeightAndNavigateToHome(Weight weight, BuildContext context) async {
-  //   if (_formKey.currentState!.validate()) {
-  //     Weight weight = Weight(
-  //       name: _nameController.text,
-  //       age: int.parse(_rollController.text),
-  //       weight: double.parse(_weightController.text),
-  //       time: int.parse(_timeController.text),
-  //       date: DateTime.now(),
-  //
-  //       id: '',
-  //     );
-  //     await _weightService.addWeightAndNavigateToHome( Weight weight);
-  //     _loadWeightHistory();
-  //     _nameController.clear();
-  //     _timeController.clear();
-  //     _datetimeController.clear();
-  //     _rollController.clear();
-  //     _weightController.clear();
-  //
-  //
-  //   }
-  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,20 +108,13 @@ class _AddWeightState extends State<AddWeight> {
                 hintText: 'Age',
                 textInputType: TextInputType.number,
                 controller: _rollController),
+
             getMyField(hintText: 'Date', controller: _nameController),
             getMyField(
+
                 hintText: 'Weight',
                 textInputType: TextInputType.number,
                 controller: _weightController),
-            // getMyField(
-            //     hintText: 'Date',
-            //     textInputType: TextInputType.number,
-            //     controller: _datetimeController),
-            // getMyField(
-            //     hintText: 'Time',
-            //     textInputType: TextInputType.number,
-            //     controller: _timeController),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -159,35 +128,28 @@ class _AddWeightState extends State<AddWeight> {
                        // date: DateTime.now(),
                         //time: int.parse(_timeController.text), id: '',
                       );
+
                       // ToDO: Adding a Weight
+
                       addWeightAndNavigateToHome(weight,context);
                       //
                     },
                     child: const Text('Add')),
+
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueGrey),
                     onPressed: () {
-                      //
                       _rollController.text = '';
                       _nameController.text = '';
                       _weightController.text = '';
-                      // _timeController.text = '';
-                      // _timeController.text = '';
                       focusNode.requestFocus();
-                      //
                     },
                     child: const Text('Reset')),
-
               ],
-
-
-
             )
           ],
             )
-
-
       ),
     );
   }
@@ -228,7 +190,6 @@ void addWeightAndNavigateToHome(Weight weight, BuildContext context) {
         ),
         (route) => false,
       );
-      //
     });
 
     //

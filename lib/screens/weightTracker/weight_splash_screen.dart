@@ -8,7 +8,6 @@ class WeightSplashScreen extends StatefulWidget {
   @override
   _WeightSplashScreenState createState() => _WeightSplashScreenState();
 }
-
 class _WeightSplashScreenState extends State<WeightSplashScreen> {
   @override
   void initState() {
@@ -20,7 +19,6 @@ class _WeightSplashScreenState extends State<WeightSplashScreen> {
       );
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

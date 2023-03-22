@@ -8,11 +8,7 @@ import 'package:flutter_new/screens/weightTracker/add_weight.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_new/screens/weightTracker/search.dart';
-
-
-
 import 'dart:developer';
-
 import 'package:flutter_new/screens/weightTracker/widget/search_bar.dart';
 
 
@@ -21,7 +17,6 @@ import 'package:flutter_new/screens/weightTracker/widget/search_bar.dart';
 
 
 class SearchBar extends StatelessWidget {
-  //const SearchBar({super.key});
   final CollectionReference _reference =
       FirebaseFirestore.instance.collection('weights');
   final double _drawerIconSize = 24;
@@ -52,11 +47,8 @@ class SearchBar extends StatelessWidget {
                         .colorScheme
                         .secondary,
                   ])),
-
         ),
-
         centerTitle: true,
-        //
         actions: [
           Container(
             margin: const EdgeInsets.only(
@@ -79,32 +71,6 @@ class SearchBar extends StatelessWidget {
               ),
             ),
           ),
-          // IconButton(
-          //     onPressed: () => Navigator.of(context)
-          //        .push(MaterialPageRoute(builder:(_) => Container())),
-          //            icon: const Icon(Icons.search)
-      //    )
-
-
-
-            //   SearchBar( margin: const EdgeInsets.symmetric(vertical: 10),
-            //     padding: const EdgeInsets.all(10),
-            //     height: 90,
-            //     decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.circular(13),
-            //       boxShadow: const [
-            //         BoxShadow(
-            //           offset: Offset(0, 17),
-            //           blurRadius: 23,
-            //           spreadRadius: -13,
-            //           color: Color(0xFFE6E6E6),
-            //         ),
-            //       ],
-            //     )
-            //
-            // )
-
         ],
       ),
 
@@ -223,10 +189,8 @@ class SearchBar extends StatelessWidget {
             ],
           ),
         ),
-
       ),
       body: Container(
-
         height: size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -246,7 +210,6 @@ class SearchBar extends StatelessWidget {
             fit: BoxFit.fitWidth,
           ),
         ),
-
         child: FutureBuilder<QuerySnapshot>(
           future: _reference.get(),
           builder: (context, snapshot) {
@@ -287,7 +250,6 @@ class SearchBar extends StatelessWidget {
       ),
     );
   }
-
   Widget _getBody(weights) {
     return weights.isEmpty
         ? const Center(
@@ -363,5 +325,4 @@ class SearchBar extends StatelessWidget {
       ),
     );
   }
-
 }
