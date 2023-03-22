@@ -8,6 +8,9 @@ import 'package:flutter_new/screens/weightTracker/add_weight.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
 import 'package:flutter_new/screens/weightTracker/search.dart';
 
+import 'progress_calendar/weight_calendar_home.dart';
+
+
 class SearchBar extends StatelessWidget {
   final CollectionReference _reference =
       FirebaseFirestore.instance.collection('weights');
@@ -58,6 +61,27 @@ class SearchBar extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => SearchPage(),
+                      ));
+                },
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(
+              top: 16,
+              right: 16,
+            ),
+            child: Container(
+              child: InkWell(
+                child: Icon(
+                  Icons.calendar_month,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CalendarHomePage(),
                       ));
                 },
               ),

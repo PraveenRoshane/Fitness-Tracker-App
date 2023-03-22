@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c52f4383-5a7b-4da0-9806-39d93b09fb3e" name="Changes" comment="updated weight tracker">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/search.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/search.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,15 +52,19 @@
     <property name="dart.analysis.tool.window.force.activate" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Fitness-Tracker-App-IT20135720/Fitness-Tracker-App-IT20135720" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/screens/weightTracker/widget" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\lib\screens\weightTracker\widget" />
-      <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\assets\images" />
       <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\lib\screens\weightTracker" />
-      <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\lib\screens" />
+      <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\lib\models" />
+      <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\lib\screens\weightTracker\weight_calendar" />
+      <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\assets\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DELL\Desktop\FitnesTracker\Fitness-Tracker-App\lib\screens\weightTracker\weight_calendar" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -133,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679475202963</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="updated weight tracker">
+      <created>1679476149579</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1679476149579</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
