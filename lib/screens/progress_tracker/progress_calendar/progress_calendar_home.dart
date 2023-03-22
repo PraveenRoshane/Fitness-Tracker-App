@@ -263,7 +263,7 @@ class _CalendarHomePageState extends State<CalendarHomePage> {
                   final delete = await showDialog<bool>(
                     context: context,
                     builder: (_) => AlertDialog(
-                      title: const Text("Delete Event?"),
+                      title: const Text("Delete Milestone?"),
                       content: const Text("Are you sure you want to delete?"),
                       actions: [
                         TextButton(

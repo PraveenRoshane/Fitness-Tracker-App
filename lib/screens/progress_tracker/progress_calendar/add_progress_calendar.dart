@@ -83,6 +83,8 @@ class _AddProgressCalendarState extends State<AddProgressCalendar> {
           ElevatedButton(
             onPressed: () {
               _addEvent();
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Successfully Added Milestone")));
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.teal.shade400,

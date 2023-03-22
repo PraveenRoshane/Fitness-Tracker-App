@@ -86,7 +86,9 @@ class _EditProgressCalendarState extends State<EditProgressCalendar> {
           ),
           ElevatedButton(
             onPressed: () {
-              _addEvent();
+              _editEvent();
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Successfully Updated Milestone")));
             },
             style: ElevatedButton.styleFrom(
               primary: Colors.teal.shade400,
@@ -101,7 +103,7 @@ class _EditProgressCalendarState extends State<EditProgressCalendar> {
     );
   }
 
-  void _addEvent() async {
+  void _editEvent() async {
     final title = _titleController.text;
     final description = _descController.text;
     if (title.isEmpty) {

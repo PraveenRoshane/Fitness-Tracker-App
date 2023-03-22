@@ -288,8 +288,8 @@ class ProgressHomePage extends StatelessWidget {
                                     final delete = await showDialog<bool>(
                                         context: context,
                                         builder: (context) => AlertDialog(
-                                              title:
-                                                  const Text("Delete Event?"),
+                                              title: const Text(
+                                                  "Delete Progress Record?"),
                                               content: const Text(
                                                   "Are you sure you want to delete?"),
                                               actions: [
