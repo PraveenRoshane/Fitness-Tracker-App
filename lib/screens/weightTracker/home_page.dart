@@ -6,15 +6,7 @@ import 'package:flutter_new/screens/authentication/login_page.dart';
 import 'package:flutter_new/screens/home/home.dart';
 import 'package:flutter_new/screens/weightTracker/add_weight.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_new/screens/weightTracker/search.dart';
-import 'dart:developer';
-import 'package:flutter_new/screens/weightTracker/widget/search_bar.dart';
-
-
-
-
-
 
 class SearchBar extends StatelessWidget {
   final CollectionReference _reference =

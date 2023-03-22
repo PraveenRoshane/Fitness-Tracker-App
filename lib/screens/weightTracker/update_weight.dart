@@ -1,10 +1,7 @@
 import 'dart:developer';
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_new/models/weight_modal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_new/models/weight_modal.dart';
-import 'package:flutter_new/screens/home/home.dart';
 import 'package:flutter_new/screens/weightTracker/home_page.dart';
 
 
