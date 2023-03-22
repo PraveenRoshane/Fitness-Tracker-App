@@ -8,7 +8,7 @@ import 'package:flutter_new/screens/weightTracker/add_weight.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
 import 'package:flutter_new/screens/weightTracker/search.dart';
 
-import 'progress_calendar/weight_calendar_home.dart';
+import 'weight_calendar/weight_calendar_home.dart';
 
 
 class SearchBar extends StatelessWidget {
