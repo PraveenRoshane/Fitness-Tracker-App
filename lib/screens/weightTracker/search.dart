@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_new/models/weight_modal.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
 import 'package:flutter_new/screens/home/home.dart';
+import 'package:flutter_new/screens/weightTracker/add_weight.dart';
 import 'package:flutter_new/screens/weightTracker/home_page.dart';
 import 'package:flutter_new/screens/weightTracker/update_weight.dart';
 
@@ -140,7 +141,7 @@ class SearchPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.home_rounded,
+                  Icons.monitor_weight_rounded,
                   size: _drawerIconSize,
                   color: Theme
                       .of(context)
@@ -148,7 +149,7 @@ class SearchPage extends StatelessWidget {
                       .secondary,
                 ),
                 title: Text(
-                  'Home',
+                  'Weight Tracker',
                   style: TextStyle(
                       fontSize: _drawerFontSize,
                       color: Theme
@@ -159,7 +160,7 @@ class SearchPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const Home()),
+                    MaterialPageRoute(builder: (context) => SearchBar()),
                   );
                 },
               ),
