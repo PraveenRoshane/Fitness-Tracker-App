@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../models/weight_calendar_model.dart';
 
-class EventItem extends StatelessWidget {
-  final Event event;
+class WeightEventItem extends StatelessWidget {
+  final WeightEvent event;
   final Function() onDelete;
   final Function()? onTap;
-  const EventItem({
+  const WeightEventItem({
     Key? key,
     required this.event,
     required this.onDelete,

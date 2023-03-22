@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Event {
+class WeightEvent {
   final String title;
-  final String? description;
+  final String? reason;
   final DateTime date;
   final String id;
-  Event({
+  WeightEvent({
     required this.title,
-    this.description,
+    this.reason,
     required this.date,
     required this.id,
   });
 
-  factory Event.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
+  factory WeightEvent.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
       [SnapshotOptions? options]) {
     final data = snapshot.data()!;
-    return Event(
+    return WeightEvent(
       date: data['date'].toDate(),
       title: data['title'],
-      description: data['description'],
+      reason: data['reason'],
       id: snapshot.id,
     );
   }
@@ -27,7 +27,7 @@ class Event {
     return {
       "date": Timestamp.fromDate(date),
       "title": title,
-      "description": description
+      "reason": reason
     };
   }
 }

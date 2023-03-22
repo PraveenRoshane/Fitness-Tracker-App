@@ -19,7 +19,7 @@ class AddWeightCalendar extends StatefulWidget {
 class _AddWeightCalendarState extends State<AddWeightCalendar> {
   late DateTime _selectedDate;
   final _titleController = TextEditingController();
-  final _descController = TextEditingController();
+  final _recController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -76,9 +76,9 @@ class _AddWeightCalendarState extends State<AddWeightCalendar> {
             decoration: const InputDecoration(labelText: 'title'),
           ),
           TextField(
-            controller: _descController,
+            controller: _recController,
             maxLines: 5,
-            decoration: const InputDecoration(labelText: 'description'),
+            decoration: const InputDecoration(labelText: 'reason'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -99,14 +99,14 @@ class _AddWeightCalendarState extends State<AddWeightCalendar> {
 
   void _addEvent() async {
     final title = _titleController.text;
-    final description = _descController.text;
+    final reason = _recController.text;
     if (title.isEmpty) {
       print('title cannot be empty');
       return;
     }
     await FirebaseFirestore.instance.collection('weightCalendar').add({
       "title": title,
-      "description": description,
+      "reason": reason,
       "date": Timestamp.fromDate(_selectedDate),
     });
     if (mounted) {

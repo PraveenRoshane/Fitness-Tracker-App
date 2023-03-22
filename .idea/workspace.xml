@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c52f4383-5a7b-4da0-9806-39d93b09fb3e" name="Changes" comment="updated weight tracker">
-      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/weight_calendar_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/weight_calendar_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/weight_calendar/add_weight_calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/weight_calendar/add_weight_calendar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/weight_calendar/weight_calendar_home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/weight_calendar/weight_calendar_home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/weightTracker/widget/weight_event_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/weightTracker/widget/weight_event_item.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679493932833</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="updated weight tracker">
+      <created>1679494000834</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1679494000834</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">

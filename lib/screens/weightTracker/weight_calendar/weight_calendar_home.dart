@@ -29,7 +29,7 @@ class _CalendarHomePageState extends State<CalendarHomePage> {
   late DateTime _targetDay;
   late DateTime _selectedDay;
   late CalendarFormat _calendarFormat;
-  late Map<DateTime, List<Event>> _events;
+  late Map<DateTime, List<WeightEvent>> _events;
   final double _drawerIconSize = 24;
   final double _drawerFontSize = 17;
 
@@ -62,7 +62,7 @@ class _CalendarHomePageState extends State<CalendarHomePage> {
         .where('date', isGreaterThanOrEqualTo: firstDay)
         .where('date', isLessThanOrEqualTo: lastDay)
         .withConverter(
-            fromFirestore: Event.fromFirestore,
+            fromFirestore: WeightEvent.fromFirestore,
             toFirestore: (event, options) => event.toFirestore())
         .get();
     for (var doc in snap.docs) {
@@ -77,7 +77,7 @@ class _CalendarHomePageState extends State<CalendarHomePage> {
     setState(() {});
   }
 
-  List<Event> _getEventsForTheDay(DateTime day) {
+  List<WeightEvent> _getEventsForTheDay(DateTime day) {
     return _events[day] ?? [];
   }
 
@@ -245,22 +245,8 @@ class _CalendarHomePageState extends State<CalendarHomePage> {
             ),
           ),
           ..._getEventsForTheDay(_selectedDay).map(
-            (event) => EventItem(
+            (event) => WeightEventItem(
                 event: event,
-                // onTap: () async {
-                //   final res = await Navigator.push<bool>(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (_) => EditWeightCalendar(
-                //           startDate: _startDay,
-                //           targetDate: _targetDay,
-                //           event: event),
-                //     ),
-                //   );
-                //   if (res ?? false) {
-                //     _loadFirestoreEvents();
-                //   }
-                // },
                 onDelete: () async {
                   final delete = await showDialog<bool>(
                     context: context,
