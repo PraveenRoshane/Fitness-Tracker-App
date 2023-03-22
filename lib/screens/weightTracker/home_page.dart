@@ -301,7 +301,7 @@ class SearchBar extends StatelessWidget {
       itemBuilder: (context, index) => Card(
         color: weights[index].weight < 40
             ? Colors.yellow
-            : weights[index].weight > 100
+            : weights[index].weight > 90
             ? Colors.red
             : Colors.green,
         child: ListTile(

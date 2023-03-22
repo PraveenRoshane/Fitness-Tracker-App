@@ -26,7 +26,7 @@ class UpdateWeight extends StatelessWidget {
     _weightController.text = '${weight.weight}';
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Weight'),
+        title: const Text('Update Weight'),
         elevation: 0.5,
         iconTheme: const IconThemeData(color: Colors.white),
         flexibleSpace: Container(
