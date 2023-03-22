@@ -284,16 +284,47 @@ class ProgressHomePage extends StatelessWidget {
                                     Icons.delete,
                                     color: Colors.red,
                                   ),
-                                  onTap: () {
-                                    _reference
-                                        .doc(workoutmodel[index].id)
-                                        .delete();
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProgressHomePage(),
-                                        ));
+                                  onTap: () async {
+                                    final delete = await showDialog<bool>(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              title:
+                                                  const Text("Delete Event?"),
+                                              content: const Text(
+                                                  "Are you sure you want to delete?"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, false),
+                                                  style: TextButton.styleFrom(
+                                                    foregroundColor:
+                                                        Colors.black,
+                                                  ),
+                                                  child: const Text("No"),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, true),
+                                                  style: TextButton.styleFrom(
+                                                    foregroundColor: Colors.red,
+                                                  ),
+                                                  child: const Text("Yes"),
+                                                ),
+                                              ],
+                                            ));
+                                    if (delete ?? false) {
+                                      _reference
+                                          .doc(workoutmodel[index].id)
+                                          .delete();
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProgressHomePage(),
+                                          ));
+                                    }
                                   },
                                 ),
                               ],

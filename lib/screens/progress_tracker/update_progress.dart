@@ -78,6 +78,9 @@ class UpdateGoal extends StatelessWidget {
                             .doc(updatedworkout.id)
                             .update(updatedworkout.toJson())
                             .whenComplete(() {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("Successfully Updated Progress Goal")));
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

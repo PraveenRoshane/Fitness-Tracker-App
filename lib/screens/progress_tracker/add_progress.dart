@@ -16,6 +16,7 @@ class AddGoal extends StatefulWidget {
 
 class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  final formKey = GlobalKey<FormState>();
   final TextEditingController goalcontroller = TextEditingController();
   final TextEditingController targetdatecontroller = TextEditingController();
   final TextEditingController startdatecontroller = TextEditingController();
@@ -35,7 +36,9 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text(
           'Add New Goal',
@@ -64,54 +67,64 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
-          const SizedBox(height: 20),
-          getField(hintText: 'Goal', controller: goalcontroller),
-          getField(hintText: 'Start Date', controller: startdatecontroller),
-          getField(hintText: 'Target Date', controller: targetdatecontroller),
-          getField(
-              hintText: 'Number of Milestones',
-              controller: milestonecontroller),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SizedBox(
-                width: 200.0,
-                height: 50.0,
-                child: ElevatedButton(
-                    onPressed: () {
-                      Workoutmodel workout = Workoutmodel(
-                          goal: goalcontroller.text,
-                          targetdate: targetdatecontroller.text,
-                          startdate: startdatecontroller.text,
-                          milestonecount: int.parse(milestonecontroller.text));
-                      addNavigateHome(workout, context);
-                    },
-                    child: const Text(
-                      "Add",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )),
-              ),
-              SizedBox(
-                width: 200.0,
-                height: 50.0,
-                child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.grey),
-                    onPressed: () {
-                      goalcontroller.text = '';
-                      targetdatecontroller.text = '';
-                      startdatecontroller.text = '';
-                      milestonecontroller.text = '';
-                    },
-                    child: const Text(
-                      "Reset",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )),
-              ),
-            ],
-          )
-        ]),
+        child: Form(
+          key: formKey,
+          child: Column(children: [
+            const SizedBox(height: 20),
+            getField(hintText: 'Goal', controller: goalcontroller),
+            getField(hintText: 'Start Date', controller: startdatecontroller),
+            getField(hintText: 'Target Date', controller: targetdatecontroller),
+            getField(
+                hintText: 'Number of Milestones',
+                controller: milestonecontroller),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: 200.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Workoutmodel workout = Workoutmodel(
+                            goal: goalcontroller.text,
+                            targetdate: targetdatecontroller.text,
+                            startdate: startdatecontroller.text,
+                            milestonecount:
+                                int.parse(milestonecontroller.text));
+
+                        if (formKey.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text("Successfully Added Progress Goal")));
+                          addNavigateHome(workout, context);
+                        }
+                      },
+                      child: const Text(
+                        "Add",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+                SizedBox(
+                  width: 200.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey),
+                      onPressed: () {
+                        goalcontroller.text = '';
+                        targetdatecontroller.text = '';
+                        startdatecontroller.text = '';
+                        milestonecontroller.text = '';
+                      },
+                      child: const Text(
+                        "Reset",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                ),
+              ],
+            )
+          ]),
+        ),
       ),
     );
   }
@@ -120,14 +133,19 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
       {required String hintText, required TextEditingController controller}) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-            hintText: 'Enter $hintText',
-            labelText: hintText,
-            border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(5)))),
-      ),
+      child: TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+              hintText: 'Enter $hintText',
+              labelText: hintText,
+              border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5)))),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Fill the blanks';
+            }
+            return null;
+          }),
     );
   }
 
