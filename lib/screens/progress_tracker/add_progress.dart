@@ -69,6 +69,7 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
       ),
       body: SingleChildScrollView(
         child: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           key: formKey,
           child: Column(children: [
             const SizedBox(height: 20),
@@ -88,14 +89,13 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
                   height: 50.0,
                   child: ElevatedButton(
                       onPressed: () {
-                        Workoutmodel workout = Workoutmodel(
-                            goal: goalcontroller.text,
-                            targetdate: targetdatecontroller.text,
-                            startdate: startdatecontroller.text,
-                            milestonecount:
-                                int.parse(milestonecontroller.text));
-
                         if (formKey.currentState!.validate()) {
+                          Workoutmodel workout = Workoutmodel(
+                              goal: goalcontroller.text,
+                              targetdate: targetdatecontroller.text,
+                              startdate: startdatecontroller.text,
+                              milestonecount:
+                                  int.parse(milestonecontroller.text));
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content:
                                   Text("Successfully Added Progress Goal!")));
