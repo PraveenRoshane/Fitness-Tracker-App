@@ -216,7 +216,10 @@ class ProgressHomePage extends StatelessWidget {
   Widget _getBody(workoutmodel) {
     return workoutmodel.isEmpty
         ? const Center(
-            child: Text('Click "+" button to add a new workout goal'),
+            child: Text(
+              'Click "+" button to add a new workout goal',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
           )
         : ListView.builder(
             itemCount: workoutmodel.length,

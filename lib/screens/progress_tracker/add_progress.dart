@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/ticker_provider.dart';
 import 'package:flutter_new/models/progress_model.dart';
 import 'package:flutter_new/screens/progress_tracker/progress_home.dart';
+import 'package:intl/intl.dart';
 
 class AddGoal extends StatefulWidget {
   const AddGoal({super.key});
@@ -72,8 +73,10 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
           child: Column(children: [
             const SizedBox(height: 20),
             getField(hintText: 'Goal', controller: goalcontroller),
-            getField(hintText: 'Start Date', controller: startdatecontroller),
-            getField(hintText: 'Target Date', controller: targetdatecontroller),
+            getCalendarStartField(
+                hintText: 'Start Date', controller: startdatecontroller),
+            getCalendarEndField(
+                hintText: 'Target Date', controller: targetdatecontroller),
             getField(
                 hintText: 'Number of Milestones',
                 controller: milestonecontroller),
@@ -95,7 +98,7 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
                         if (formKey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content:
-                                  Text("Successfully Added Progress Goal")));
+                                  Text("Successfully Added Progress Goal!")));
                           addNavigateHome(workout, context);
                         }
                       },
@@ -142,9 +145,80 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
                   borderRadius: BorderRadius.all(Radius.circular(5)))),
           validator: (value) {
             if (value!.isEmpty) {
-              return 'Fill the blanks';
+              return "Please fill all the fields!";
+            } else {
+              return null;
             }
-            return null;
+          }),
+    );
+  }
+
+  Widget getCalendarStartField(
+      {required String hintText, required TextEditingController controller}) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+              hintText: 'Enter $hintText',
+              labelText: hintText,
+              border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5)))),
+          onTap: () async {
+            DateTime? pickeddate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101));
+
+            if (pickeddate != null) {
+              setState(() {
+                startdatecontroller.text =
+                    DateFormat('yyyy-MM-dd').format(pickeddate);
+              });
+            }
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Please fill all the fields!";
+            } else {
+              return null;
+            }
+          }),
+    );
+  }
+
+  Widget getCalendarEndField(
+      {required String hintText, required TextEditingController controller}) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+              hintText: 'Enter $hintText',
+              labelText: hintText,
+              border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(5)))),
+          onTap: () async {
+            DateTime? pickeddate = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000),
+                lastDate: DateTime(2101));
+
+            if (pickeddate != null) {
+              setState(() {
+                targetdatecontroller.text =
+                    DateFormat('yyyy-MM-dd').format(pickeddate);
+              });
+            }
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Please fill all the fields!";
+            } else {
+              return null;
+            }
           }),
     );
   }
