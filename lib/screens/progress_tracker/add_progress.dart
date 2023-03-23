@@ -73,9 +73,9 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
           child: Column(children: [
             const SizedBox(height: 20),
             getField(hintText: 'Goal', controller: goalcontroller),
-            getCalendarStartField(
+            getCalendarField(
                 hintText: 'Start Date', controller: startdatecontroller),
-            getCalendarEndField(
+            getCalendarField(
                 hintText: 'Target Date', controller: targetdatecontroller),
             getField(
                 hintText: 'Number of Milestones',
@@ -153,7 +153,7 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget getCalendarStartField(
+  Widget getCalendarField(
       {required String hintText, required TextEditingController controller}) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -173,43 +173,7 @@ class _AddGoalState extends State<AddGoal> with SingleTickerProviderStateMixin {
 
             if (pickeddate != null) {
               setState(() {
-                startdatecontroller.text =
-                    DateFormat('yyyy-MM-dd').format(pickeddate);
-              });
-            }
-          },
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "Please fill all the fields!";
-            } else {
-              return null;
-            }
-          }),
-    );
-  }
-
-  Widget getCalendarEndField(
-      {required String hintText, required TextEditingController controller}) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-              hintText: 'Enter $hintText',
-              labelText: hintText,
-              border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5)))),
-          onTap: () async {
-            DateTime? pickeddate = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2101));
-
-            if (pickeddate != null) {
-              setState(() {
-                targetdatecontroller.text =
-                    DateFormat('yyyy-MM-dd').format(pickeddate);
+                controller.text = DateFormat('yyyy-MM-dd').format(pickeddate);
               });
             }
           },

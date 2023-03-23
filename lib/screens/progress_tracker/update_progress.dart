@@ -19,7 +19,7 @@ class UpdateGoal extends StatelessWidget {
   Widget build(BuildContext context) {
     goalcontroller.text = workoutmodel.goal;
     targetdatecontroller.text = workoutmodel.targetdate;
-    startdatecontroller.text = workoutmodel.targetdate;
+    startdatecontroller.text = workoutmodel.startdate;
     milestonecontroller.text = '${workoutmodel.milestonecount}';
     return Scaffold(
         appBar: AppBar(
