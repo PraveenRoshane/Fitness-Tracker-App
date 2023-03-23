@@ -14,6 +14,8 @@ import '../../authentication/login_page.dart';
 import '../widgets/event_item.dart';
 import 'add_progress_calendar.dart';
 
+//This code is referred from the github source with link 'https://github.com/lohanidamodar/flutter_events_2023'
+
 class CalendarHomePage extends StatefulWidget {
   const CalendarHomePage({super.key});
 

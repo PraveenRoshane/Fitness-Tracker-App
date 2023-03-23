@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+//This code is referred from the github source with link 'https://github.com/lohanidamodar/flutter_events_2023'
+
 class AddProgressCalendar extends StatefulWidget {
   final DateTime startDate;
   final DateTime targetDate;

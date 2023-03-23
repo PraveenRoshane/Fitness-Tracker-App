@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../models/progress_calendar_model.dart';
 
+//This code is referred from the github source with link 'https://github.com/lohanidamodar/flutter_events_2023'
+
 class EditProgressCalendar extends StatefulWidget {
   final DateTime startDate;
   final DateTime targetDate;
