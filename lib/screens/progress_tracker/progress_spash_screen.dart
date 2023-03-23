@@ -1,22 +1,22 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_new/screens/exercise_tracker/exercise_tracker_page.dart';
+import 'package:flutter_new/screens/progress_tracker/progress_home.dart';
 
-class ExerciseSplashScreen extends StatefulWidget {
-  const ExerciseSplashScreen({super.key});
+class ProgressSplashScreen extends StatefulWidget {
+  const ProgressSplashScreen({super.key});
 
   @override
-  _ExerciseSplashScreenState createState() => _ExerciseSplashScreenState();
+  _ProgressSplashScreenState createState() => _ProgressSplashScreenState();
 }
 
-class _ExerciseSplashScreenState extends State<ExerciseSplashScreen> {
+class _ProgressSplashScreenState extends State<ProgressSplashScreen> {
   @override
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ExerciseTrackerPage()),
+        MaterialPageRoute(builder: (context) => ProgressHomePage()),
       );
     });
   }
@@ -26,16 +26,13 @@ class _ExerciseSplashScreenState extends State<ExerciseSplashScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                Theme.of(context).primaryColor,
-                Theme.of(context).colorScheme.secondary,
-              ],
-              begin: const FractionalOffset(0.0, 0.0),
-              end: const FractionalOffset(1.0, 0.0),
-              stops: const [0.0, 1.0],
-              tileMode: TileMode.clamp),
-        ),
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[
+              Theme.of(context).primaryColor,
+              Theme.of(context).colorScheme.secondary,
+            ])),
         child: Center(
           child: SafeArea(
             child: Column(
@@ -43,13 +40,13 @@ class _ExerciseSplashScreenState extends State<ExerciseSplashScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/images/exercise.png',
+                  'assets/images/progress.png',
                   width: 150,
                   height: 150,
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'Exercise Tracker',
+                  'Progress Tracker',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,

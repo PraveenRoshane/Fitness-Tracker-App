@@ -4,11 +4,13 @@ import 'package:flutter_new/screens/authentication/login_page.dart';
 import 'package:flutter_new/screens/exercise_tracker/exercise_tracker_page.dart';
 import 'package:flutter_new/screens/home/widget/discover_small_card.dart';
 import 'package:flutter_new/screens/weightTracker/home_page.dart';
-
+import 'package:flutter_new/screens/authentication/profile_page.dart';
 import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
 import 'package:flutter_new/screens/exercise_tracker/exercise_splash_screen.dart';
 import 'package:flutter_new/screens/home/widget/home_card.dart';
 import 'package:flutter_new/screens/weightTracker/weight_splash_screen.dart';
+
+import '../progress_tracker/progress_spash_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -77,16 +79,20 @@ class _HomeState extends State<Home> {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.settings_rounded,
+                  Icons.person_2_rounded,
                   size: _drawerIconSize,
                 ),
                 title: Text(
-                  'Settings',
+                  'Profile',
                   style: TextStyle(
                     fontSize: _drawerFontSize,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  if (!mounted) return;
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()));
+                },
               ),
               ListTile(
                 leading: Icon(
@@ -172,7 +178,13 @@ class _HomeState extends State<Home> {
                             HomeCard(
                               name: "Progress Tracker",
                               icon: Icons.trending_up_rounded,
-                              press: () {},
+                              press: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ProgressSplashScreen()));
+                              },
                             ),
                           ]),
                     )

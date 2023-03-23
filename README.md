@@ -1,4 +1,4 @@
-# flutter_new
+# Fitness Tracker App
 
 A new Flutter project.
 
