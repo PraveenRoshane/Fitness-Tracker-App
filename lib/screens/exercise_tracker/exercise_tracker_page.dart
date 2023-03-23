@@ -9,6 +9,7 @@ import 'package:flutter_new/screens/exercise_tracker/widgets/search_bar.dart';
 import 'package:flutter_new/screens/home/home.dart';
 import 'package:shimmer/shimmer.dart';
 
+
 class ExerciseTrackerPage extends StatefulWidget {
   const ExerciseTrackerPage({super.key});
 

@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/screens/authentication/login_page.dart';
+import 'package:flutter_new/screens/exercise_tracker/exercise_tracker_page.dart';
+import 'package:flutter_new/screens/home/widget/discover_small_card.dart';
+import 'package:flutter_new/screens/weightTracker/home_page.dart';
 import 'package:flutter_new/screens/authentication/profile_page.dart';
 import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
 import 'package:flutter_new/screens/exercise_tracker/exercise_splash_screen.dart';
 import 'package:flutter_new/screens/home/widget/home_card.dart';
+import 'package:flutter_new/screens/weightTracker/weight_splash_screen.dart';
 
 import '../progress_tracker/progress_spash_screen.dart';
 
@@ -163,7 +167,13 @@ class _HomeState extends State<Home> {
                             HomeCard(
                               name: "Weight Tracker",
                               icon: Icons.monitor_weight_rounded,
-                              press: () {},
+                              press: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                        const WeightSplashScreen()));
+                              },
                             ),
                             HomeCard(
                               name: "Progress Tracker",
@@ -184,5 +194,57 @@ class _HomeState extends State<Home> {
             ],
           ),
         ));
+
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 28),
+        child: GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 19,
+              mainAxisExtent: 125,
+              mainAxisSpacing: 19),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            DiscoverSmallCard(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ExerciseTrackerPage()));
+              },
+              title: "Exercise Tracker",
+              gradientStartColor: const Color(0xff13DEA0),
+              gradientEndColor: const Color(0xff06B782),
+              icon: const Icon(Icons.fitness_center_rounded),
+            ),
+            DiscoverSmallCard(
+              onTap: () {},
+              title: "Diet Tracker",
+              gradientStartColor: const Color(0xffFC67A7),
+              gradientEndColor: const Color(0xffF6815B),
+              icon: const Icon(Icons.food_bank_rounded),
+            ),
+            DiscoverSmallCard(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchBar()));
+              },
+              title: "Weight Tracker",
+              gradientStartColor: const Color(0xffFFD541),
+              gradientEndColor: const Color(0xffF0B31A),
+              icon: const Icon(Icons.monitor_weight_rounded),
+            ),
+            DiscoverSmallCard(
+              onTap: () {},
+              title: "Progress Tracker",
+              icon: const Icon(Icons.trending_up_rounded),
+            ),
+          ],
+        ),
+
+    );
   }
 }
