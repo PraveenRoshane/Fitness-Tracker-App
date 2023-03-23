@@ -6,6 +6,8 @@ import 'package:flutter_new/screens/authentication/widgets/header_widget.dart';
 import 'package:flutter_new/screens/exercise_tracker/exercise_splash_screen.dart';
 import 'package:flutter_new/screens/home/widget/home_card.dart';
 
+import '../progress_tracker/progress_spash_screen.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -166,7 +168,13 @@ class _HomeState extends State<Home> {
                             HomeCard(
                               name: "Progress Tracker",
                               icon: Icons.trending_up_rounded,
-                              press: () {},
+                              press: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ProgressSplashScreen()));
+                              },
                             ),
                           ]),
                     )
