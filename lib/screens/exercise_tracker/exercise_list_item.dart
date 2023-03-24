@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_new/models/exercise_model.dart';
+import 'package:intl/intl.dart';
 
 class ExerciseListItem extends StatelessWidget {
   final Exercise exercise;
@@ -17,7 +18,7 @@ class ExerciseListItem extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.all(10),
-      height: 90,
+      height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(13),
@@ -52,6 +53,11 @@ class ExerciseListItem extends StatelessWidget {
                 ),
                 Text(
                   '${exercise.repetitions} repetitions',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Text(
+                  DateFormat('MMM dd, yyyy').format(
+                      DateTime.parse(exercise.timestamp.toDate().toString())),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ],
