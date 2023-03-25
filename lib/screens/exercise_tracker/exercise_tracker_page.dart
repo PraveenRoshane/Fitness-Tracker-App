@@ -363,84 +363,91 @@ class _ExerciseTrackerPageState extends State<ExerciseTrackerPage> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Expanded(
-              child: _isLoading
-                  ? ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          padding: const EdgeInsets.all(10),
-                          height: 90,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(13),
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(0, 17),
-                                blurRadius: 23,
-                                spreadRadius: -13,
-                                color: Color(0xFFE6E6E6),
-                              ),
-                            ],
-                          ),
-                          child: Shimmer.fromColors(
-                            baseColor: const Color.fromARGB(255, 109, 109, 109),
-                            highlightColor: Colors.grey,
-                            child: Row(
-                              children: <Widget>[
-                                const SizedBox(width: 50, height: 50),
-                                const SizedBox(width: 20),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        width: double.infinity,
-                                        height: 10,
-                                        color: Colors.white,
-                                      ),
-                                      Container(
-                                        width: 80,
-                                        height: 10,
-                                        color: Colors.white,
-                                      ),
-                                      Container(
-                                        width: 100,
-                                        height: 10,
-                                        color: Colors.white,
-                                      ),
-                                    ],
+          child: Flex(
+            direction: Axis.vertical,
+            children: [
+              Expanded(
+                  child: _isLoading
+                      ? ListView.builder(
+                          itemCount: 10,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              padding: const EdgeInsets.all(10),
+                              height: 90,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(13),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    offset: Offset(0, 17),
+                                    blurRadius: 23,
+                                    spreadRadius: -13,
+                                    color: Color(0xFFE6E6E6),
                                   ),
+                                ],
+                              ),
+                              child: Shimmer.fromColors(
+                                baseColor:
+                                    const Color.fromARGB(255, 109, 109, 109),
+                                highlightColor: Colors.grey,
+                                child: Row(
+                                  children: <Widget>[
+                                    const SizedBox(width: 50, height: 50),
+                                    const SizedBox(width: 20),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            width: double.infinity,
+                                            height: 10,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            width: 80,
+                                            height: 10,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            width: 100,
+                                            height: 10,
+                                            color: Colors.white,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const SizedBox(width: 50, height: 50),
+                                  ],
                                 ),
-                                const SizedBox(width: 10),
-                                const SizedBox(width: 50, height: 50),
-                              ],
-                            ),
-                          ),
-                        );
-                      })
-                  : AnimatedList(
-                      key: _listKey,
-                      initialItemCount: _exerciseHistory.length,
-                      itemBuilder: (context, index, animation) {
-                        return SlideTransition(
-                          position: Tween<Offset>(
-                            begin: const Offset(-1, 0),
-                            end: const Offset(0, 0),
-                          ).animate(animation),
-                          child: ExerciseListItem(
-                            exercise: _exerciseHistory[index],
-                            onDelete: () =>
-                                _deleteExercise(_exerciseHistory[index]),
-                            onEdit: () => showEditForm(_exerciseHistory[index]),
-                          ),
-                        );
-                      },
-                    )),
+                              ),
+                            );
+                          })
+                      : AnimatedList(
+                          key: _listKey,
+                          initialItemCount: _exerciseHistory.length,
+                          itemBuilder: (context, index, animation) {
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(-1, 0),
+                                end: const Offset(0, 0),
+                              ).animate(animation),
+                              child: ExerciseListItem(
+                                exercise: _exerciseHistory[index],
+                                onDelete: () =>
+                                    _deleteExercise(_exerciseHistory[index]),
+                                onEdit: () =>
+                                    showEditForm(_exerciseHistory[index]),
+                              ),
+                            );
+                          },
+                        )),
+            ],
+          ),
         )
       ]),
       floatingActionButton: FloatingActionButton(
