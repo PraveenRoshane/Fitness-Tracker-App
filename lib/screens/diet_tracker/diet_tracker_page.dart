@@ -24,6 +24,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
   final TextEditingController _mealTypeController = TextEditingController();
   final TextEditingController _foodItemController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
+  final TextEditingController _calorieController = TextEditingController();
   final DietService _dietService = DietService();
   List<Diet> _dietHistory = [];
   bool _isLoading = false;
@@ -53,6 +54,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
         mealType: _mealTypeController.text,
         foodItem: _foodItemController.text,
         quantity: _quantityController.text,
+        calorie: int.parse(_calorieController.text),
         
         id: '',
       );
@@ -61,6 +63,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
       _mealTypeController.clear();
       _foodItemController.clear();
       _quantityController.clear();
+      _calorieController.clear();
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
     }
@@ -145,6 +148,17 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
                               return null;
                             },
                           ),
+                             TextFormField(
+                            controller: _calorieController,
+                            decoration:
+                                const InputDecoration(labelText: 'Calories'),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter the calories';
+                              }
+                              return null;
+                            },
+                          ),
                           const SizedBox(height: 16),
                         ],
                       ),
@@ -179,6 +193,8 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
               TextEditingController(text: diet.foodItem);
           final TextEditingController editquantityController =
               TextEditingController(text: diet.quantity);
+          final TextEditingController editcalorieController =
+              TextEditingController(text: diet.calorie.toString());
           return AlertDialog(
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
@@ -249,6 +265,18 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
                             return null;
                           },
                         ),
+                         const SizedBox(height: 15),
+                        TextFormField(
+                          controller: editcalorieController,
+                          decoration:
+                              const InputDecoration(labelText: 'Calories'),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a calories';
+                            }
+                            return null;
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -271,6 +299,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
                         mealType: editmealTypeController.text,
                         foodItem: editfoodItemController.text,
                         quantity: editquantityController.text,
+                        calorie: int.parse(editcalorieController.text),
                         
                       );
                       _dietService.updateDiet(editedDiet);

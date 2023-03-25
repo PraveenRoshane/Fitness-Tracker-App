@@ -5,12 +5,13 @@ class Diet {
   final String mealType;
   final String foodItem;
   final String quantity;
-
+  final int calorie;
   Diet({
     required this.id,
     required this.mealType,
     required this.foodItem,
     required this.quantity,
+    required this.calorie,
   });
 
   factory Diet.fromSnapshot(
@@ -20,6 +21,7 @@ class Diet {
       mealType: snapshot.data()?['mealType'],
       foodItem: snapshot.data()?['foodItem'],
       quantity: snapshot.data()?['quantity'],
+      calorie: snapshot.data()?['calorie'],
     );
   }
 
@@ -28,6 +30,7 @@ class Diet {
       'mealType': mealType,
       'foodItem': foodItem,
       'quantity': quantity,
+      'calorie': calorie,
     };
   }
 }

@@ -28,12 +28,13 @@ class _DietSplashMainScreenState extends State<DietSplashMainScreen> {
               stops: const [0.0, 1.0],
               tileMode: TileMode.clamp),
           image: const DecorationImage(
-            image: AssetImage("assets/images/tomato.png"),
+            image: AssetImage("assets/images/diet_main_list.png"),
             fit: BoxFit.fitWidth,
           ),
         ),
         child: Center(
           child: ListView(
+            shrinkWrap: true,
             children: [
               ElevatedButton(
                 onPressed: () {

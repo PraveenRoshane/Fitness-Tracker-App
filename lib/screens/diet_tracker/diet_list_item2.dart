@@ -35,14 +35,14 @@ class DietListItem2 extends StatelessWidget {
           const Image(
             image: AssetImage("assets/images/strawberry.png"),
           ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: Container(
-                color: const Color.fromARGB(255, 167, 150, 150).withOpacity(0.5),
-              ),
-            ),
-          ),
+          // Positioned.fill(
+          //   child: BackdropFilter(
+          //     filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          //     child: Container(
+          //       color: const Color.fromARGB(255, 167, 150, 150).withOpacity(0.5),
+          //     ),
+          //   ),
+          // ),
           const SizedBox(width: 20),
           Expanded(
             child: Column(

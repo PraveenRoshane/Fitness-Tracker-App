@@ -3,7 +3,7 @@ import 'package:flutter_new/models/diet_model.dart';
 
 class DietService {
   final CollectionReference _dietsCollection =
-      FirebaseFirestore.instance.collection('diets');
+      FirebaseFirestore.instance.collection('diets_monday');
 
   Future<List<Diet>> getDietHistory() async {
     QuerySnapshot snapshot = await _dietsCollection.get();
