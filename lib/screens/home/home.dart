@@ -12,6 +12,8 @@ import 'package:flutter_new/screens/weightTracker/weight_splash_screen.dart';
 
 import '../progress_tracker/progress_spash_screen.dart';
 
+import '../diet_tracker/diet_splash_screen.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -162,7 +164,13 @@ class _HomeState extends State<Home> {
                             HomeCard(
                               name: "Diet Tracker",
                               icon: Icons.food_bank_rounded,
-                              press: () {},
+                               press: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DietSplashScreen()));
+                              },
                             ),
                             HomeCard(
                               name: "Weight Tracker",
