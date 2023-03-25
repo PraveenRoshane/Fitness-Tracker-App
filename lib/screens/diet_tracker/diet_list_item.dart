@@ -75,10 +75,38 @@ class DietListItem extends StatelessWidget {
                   icon: const Icon(Icons.edit),
                   onPressed: onEdit as void Function()?,
                 ),
-                IconButton(
-                  color: const Color.fromARGB(255, 62, 5, 1),
-                  icon: const Icon(Icons.delete),
-                  onPressed: onDelete as void Function()?,
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Confirm Delete'),
+                          content: const Text(
+                              'Are you sure you want to delete?'),
+                          actions: [
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Delete'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: const IconButton(
+                    color: Color.fromARGB(255, 62, 5, 1),
+                    icon: Icon(Icons.delete),
+                    onPressed: null,
+                  ),
                 ),
               ],
             ),

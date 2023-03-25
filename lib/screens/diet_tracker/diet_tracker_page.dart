@@ -332,7 +332,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Diet Tracker",
+          "Diet Tracker - Monday",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         elevation: 0.0,

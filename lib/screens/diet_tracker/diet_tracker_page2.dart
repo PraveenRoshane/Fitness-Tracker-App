@@ -308,7 +308,7 @@ class _DietTrackerPage2State extends State<DietTrackerPage2> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Diet Tracker",
+          "Diet Tracker - Tuesday",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         elevation: 0.0,
@@ -358,7 +358,7 @@ class _DietTrackerPage2State extends State<DietTrackerPage2> {
                 stops: const [0.0, 1.0],
                 tileMode: TileMode.clamp),
             image: const DecorationImage(
-              image: AssetImage("assets/images/nutritionist.png"),
+              image: AssetImage("assets/images/healthy-food.png"),
               fit: BoxFit.fitWidth,
             ),
           ),
