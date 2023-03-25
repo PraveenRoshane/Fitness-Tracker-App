@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_new/screens/diet_tracker/diet_tracker_page.dart';
+import 'package:flutter_new/screens/diet_tracker/diet_tracker_page2.dart';
+import 'package:flutter_new/screens/diet_tracker/diet_tracker_page3.dart';
 
-import 'diet_tracker_page2.dart';
+
 
 class DietSplashMainScreen extends StatefulWidget {
   const DietSplashMainScreen({super.key});
@@ -28,7 +30,7 @@ class _DietSplashMainScreenState extends State<DietSplashMainScreen> {
               stops: const [0.0, 1.0],
               tileMode: TileMode.clamp),
           image: const DecorationImage(
-            image: AssetImage("assets/images/diet_main_list.png"),
+            image: AssetImage("assets/images/healthy-food.png"),
             fit: BoxFit.fitWidth,
           ),
         ),
@@ -83,7 +85,7 @@ class _DietSplashMainScreenState extends State<DietSplashMainScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const DietTrackerPage2()),
+                        builder: (context) => const DietTrackerPage3()),
                   );
                 },
                 style: ButtonStyle(
