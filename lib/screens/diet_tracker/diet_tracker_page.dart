@@ -118,7 +118,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
                           TextFormField(
                             controller: _mealTypeController,
                             decoration:
-                                const InputDecoration(labelText: 'Meal Type'),
+                                const InputDecoration(labelText: 'Meal Type'),  //get input field data from Add form
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a meal type';
@@ -233,7 +233,7 @@ class _DietTrackerPageState extends State<DietTrackerPage> {
                       children: [
                         TextFormField(
                           controller: editmealTypeController,
-                          decoration: const InputDecoration(labelText: 'Meal Type'),
+                          decoration: const InputDecoration(labelText: 'Meal Type'), //edit inputed data
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter a meal type';
