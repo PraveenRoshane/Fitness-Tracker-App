@@ -82,8 +82,8 @@ class DietListItem extends StatelessWidget {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text('Confirm Delete'),
-                          content: const Text(
-                              'Are you sure you want to delete?'),
+                          content:
+                              const Text('Are you sure you want to delete?'),
                           actions: [
                             TextButton(
                               child: const Text('Cancel'),
@@ -94,6 +94,7 @@ class DietListItem extends StatelessWidget {
                             TextButton(
                               child: const Text('Delete'),
                               onPressed: () {
+                                onDelete();
                                 Navigator.of(context).pop();
                               },
                             ),
